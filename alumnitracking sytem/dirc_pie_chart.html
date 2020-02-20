@@ -1,0 +1,159 @@
+<html>
+    <head>
+        <style>
+    html, body, #container {
+  width: 80%;
+  height: 80%;
+  margin: 0;
+  padding: 0;
+}
+#container
+{
+  align-items: center;
+  margin-top: 30px;
+  margin-left: 550px;
+}
+      </style>
+
+    </head>
+    <body>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+<script>
+
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyAl7M57kUhkIqtC6qQHoPTVoLoUVpzJFww",
+      authDomain: "alumni-1b987.firebaseapp.com",
+      databaseURL: "https://alumni-1b987.firebaseio.com",
+      projectId: "alumni-1b987",
+      storageBucket: "alumni-1b987.appspot.com",
+      messagingSenderId: "462415600832",
+      appId: "1:462415600832:web:1e59f6138796f05c91a125",
+      measurementId: "G-SC8PCL7EFJ"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+
+    var cur_email;
+    var uid;
+  var task=window.localStorage.getItem("task");
+  firebase.auth().onAuthStateChanged(function(user) {
+				  if (user) {
+				    // User is signed in.
+				    cur_email = user.email;
+				     uid = user.uid;
+                     console.log(uid);
+				  }
+                });
+       
+        var arr=[];
+        var arr2=[];
+        var i =0;
+        var k;
+        for(k=0;k<100;k++)
+        {
+            arr[k]=0;
+        }
+    function myfunc()
+    
+    {
+        document.getElementById('table').innerHTML="";
+           var searchkey = document.getElementById('searchbox').value.toLowerCase();
+        firebase.database().ref("Users/Alumni/").once("value", function(snapshot){
+		snapshot.forEach(function(child){
+                //console.log(uid);
+                //console.log(child.key);
+                child.forEach(function(mychild)
+                {
+                   
+                arr2[i] = mychild.val().college;
+                console.log(arr[i]);
+                  x=mychild.val();
+                  mychild.child("status").forEach(function(childStatus)
+                    {
+                        var status=childStatus.val();
+                        console.log(status);
+                        if(status.toLowerCase().includes(searchkey))
+                        {
+                            console.log('inside');
+                            arr[i]+=1;
+                        }
+                      
+                    });
+                });
+                i++;
+
+              
+        });
+        
+         
+        
+        pie_chart(arr2,arr);   
+        
+    });
+  
+  }
+  
+  //pie chart
+    function pie_chart(coll,array) {
+// set the data
+   // var myData = new Array(['Student', s], ['Prof', p], ['Investor', i], ['Mentor', m], ['Business', b], ['Job', j]);
+  var myData = new Array();
+   var j;
+  for(j=0;j<coll.length;j++)
+  {
+    var block="<tr><td>"+coll[j]+"</td><td>"+array[j]+"</td></tr>";
+    document.getElementById('table').innerHTML+=block;
+    // document.getElementById('para').innerHTML+=coll[j]+"&nbsp&nbsp&nbsp&nbsp"+array[j]+"<br><br>";
+  }
+// create the chart
+//var chart = anychart.pie();
+
+
+// set the chart title
+//chart.title("Alumni Analysis Based On Professions");
+
+// add the data
+//chart.data(myData);
+
+// sort elements
+//chart.sort("desc");  
+
+// set legend position
+//chart.legend().position("right");
+// set items layout
+//chart.legend().itemsLayout("vertical");  
+
+// display the chart in the container
+// chart.container('container');
+// console.log("pie");
+// chart.draw();
+
+}
+    
+    
+    </script>
+    <script src="https://static.anychart.com/js/8.0.1/anychart-core.min.js"></script>
+    <script src="https://static.anychart.com/js/8.0.1/anychart-pie.min.js"></script>
+    <div id="container">
+    <input type="text" placeholder="Enter search key" id="searchbox">
+    <input type="button" value="submit" onclick="myfunc()">
+    <table id='table' style="margin-top: 20px;">
+
+    </table>
+    <!-- <p id="para"></p> -->
+  </div>
+
+
+</body>
+</html>

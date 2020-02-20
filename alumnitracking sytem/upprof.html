@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Add a gray background color with some padding */
+body {
+  font-family: Arial;
+  padding: 20px;
+  background: #f1f1f1;
+}
+
+/* Header/Blog Title */
+.header {
+  padding: 30px;
+  font-size: 40px;
+  background: cornflowerblue;
+  width:60%;
+}
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {   
+  float: left;
+  width: 60%;
+}
+
+/* Right column */
+.rightcolumn {
+  float: left;
+  width: 40%;
+  padding-left: 20px;
+}
+
+/* Fake image */
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Add a card effect for articles */
+.card {
+   background-color: white;
+   padding: 20px;
+   margin-top: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+  .leftcolumn, .rightcolumn {   
+    width: 100%;
+    padding: 0;
+  }
+}
+</style>
+<style>
+  * {box-sizing: border-box;}
+  body {font-family: Verdana, sans-serif; margin:0}
+  
+  
+  /* Fading animation */
+  .fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+  
+  @-webkit-keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+  }
+  
+  @keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+  }
+  
+  /* On smaller screens, decrease text size */
+  @media only screen and (max-width: 300px) {
+    .prev, .next,.text {font-size: 11px}
+  }
+  
+  
+  .show {display:block;}
+  
+  
+  
+  /* Set a style for all buttons */
+  button {
+    background-color:#4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  .vbutton{
+      background-color:teal;
+      width:45%;
+      margin-left: 20px;
+  
+  }
+  
+  button:hover {
+    opacity: 0.8;
+  }
+  
+  /* Extra styles for the cancel button */
+  .cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+  }
+  
+  /* Center the image and position the close button */
+  .imgcontainer {
+    text-align: center;
+    
+    position: relative;
+  }
+  
+  
+  
+  .container {
+    padding-left: 20px;
+    padding-bottom: 20px;
+    padding-right: 20px;
+  }
+  
+  span.psw {
+    float: right;
+    padding-top: 16px;
+  }
+  
+  /* The Modal (background) */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 5; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(1,1,1,0.7); /* Black w/ opacity */
+    padding-top: 60px;
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 50%; /* Could be more or less, depending on screen size */
+  }
+  
+  
+  /* The Close Button (x) */
+  .close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: red;
+    cursor: pointer;
+  }
+  
+  /* Add Zoom Animation */
+  .animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+  }
+  
+  @-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+  }
+    
+  @keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+  }
+  
+  /* Change styles for span and cancel button on extra small screens */
+  @media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+  
+  }
+  
+  </style>
+  <style>
+		.enddate{
+			display:none;
+		}
+		
+		.workend{
+			display:none;
+		}
+	</style>
+</head>
+<body>
+
+
+  <h1>UPDATE PROFILE</h1>
+
+<div class="row">
+  <div class="leftcolumn">
+    <div class="card">
+      <h2>Personal details</h2>
+      <b>Name :</b><input type="text" class="w3-xlarge w3-text-blue" id="myname" readonly> <br>
+      <b>Email id :</b><input type="text" class="w3-xlarge w3-text-blue" id="emailid"> <br>
+      <b>Phone-No :</b><input type="text" class="w3-xlarge w3-text-blue" id="phoneno"> <br>
+      <b>Date of birth :</b><input type="text" class="w3-xlarge w3-text-blue " id="dob" readonly> <br>
+      <b>College Name :</b><input type="text" class="w3-xlarge w3-text-blue" id="clgname" readonly> <br>
+      <b>Passing Year :</b> <input type="text" class="w3-xlarge w3-text-blue" id="pyear" readonly> <br>
+      <b>Degree :</b><input type="text" class="w3-xlarge w3-text-blue" id="deg" readonly> <br>
+      
+    </div>
+  </div>
+  <div class="rightcolumn">
+    <div class="card">
+      <h2>Change Profile Photo :</h2>
+
+      <progress id="uploader" value="0" max="100">0%</progress>
+      <input type="file" id="fileButton" value="upload"/>
+    </div>
+    <div class="card" id="id">
+      <h2>Work Experience :</h2>
+     <div id="cont"></div>
+      <button class="dropbtn" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">ADD +</button>
+      
+    </div>
+   
+  </div>
+</div>
+
+  
+  <div id="id01" class="modal">
+    
+    <form class="modal-content animate">
+      <div class="imgcontainer">
+        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+        
+      </div>
+      <h1 style="text-align: center;color:teal;" ></h1>
+      <div class="container">
+          
+        <table>
+          <tr>
+          <td><input type="text" name="company" id="company" placeholder="Enter Name Of Company"/></td>
+          <td><input type="text" name="designation" id="designation" placeholder="Enter Designation"/></td>
+          </tr>
+          <tr>
+          <td><label>Start Date:</label><input type="date" name="workstart" id="workstart"/></td>
+          <td><label id="enddate" class="enddate">End Date:</label><input type="date" class="workend" name="workend" id="workend"/></td>
+          <td><input type="checkbox" id="present" checked><label>To Present</label></td>
+          </tr>
+          <tr>
+          <td><input type="button" name="add" value="Add" onclick=" return add1()"/></td>
+          </tr>
+          </table>
+          <div>
+          <p id="myid"></p>
+          </div>
+        <br>
+          
+        <!-- <button type="submit" class="vbutton">Submit</button> -->
+        
+        
+      </div>
+  
+      
+    </form> 
+  </div>
+  <script>
+
+    // Get the modal
+    var modal = document.getElementById('id01');
+    
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    
+    
+    
+    </script>
+
+ <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-storage.js"></script>
+
+<script src="firebase.js">
+  // Your web app's Firebase configuration
+
+</script>	
+  <script>
+    function funcsub(){
+      var imageurl;
+    
+      imageurl=window.localStorage.getItem("Myurl");
+   var cuid = window.localStorage.getItem('cuid');
+   firebase.database().ref("Users/Alumni/").child(cuid).child(myuid+'/').update({
+          imageurl:imageurl
+			});	
+  
+      //alert("Event created successfully");
+      document.getElementById('id01').style.display='none';
+    }
+  
+    </script>
+  
+<script>
+		document.getElementById('myname'). value=window.localStorage.getItem('name');
+      document.getElementById('emailid'). value=window.localStorage.getItem('uemail');
+      document.getElementById('phoneno'). value=window.localStorage.getItem('phone');
+      document.getElementById('dob'). value=window.localStorage.getItem('dob');
+      document.getElementById('clgname'). value=window.localStorage.getItem('college');
+      document.getElementById('pyear'). value=window.localStorage.getItem('passyear');
+      document.getElementById('deg'). value=window.localStorage.getItem('degree');  
+
+    var checkbox = document.getElementById('present');
+	var myuid=window.localStorage.getItem('uid');
+	firebase.database().ref("Users/Alumni/").once("value", function(snapshot){
+		snapshot.forEach(function(child){
+			child.forEach(function(mychild){
+				if(mychild.key==myuid){
+					window.localStorage.setItem("collegeuid", child.key);
+				}
+			});
+		});
+	});
+
+	checkbox.addEventListener( 'change', function() {
+		if(this.checked) {
+			document.getElementById('workend').style.display="none";
+			document.getElementById('enddate').style.display="none";
+		}else{
+			document.getElementById('workend').style.display="inline";
+			document.getElementById('enddate').style.display="inline";
+		}
+	});
+	
+	function add1(){
+    
+		var x=document.getElementById('present');
+		var alumnicompany=document.getElementById('company').value;
+		var alumnidesignation=document.getElementById('designation').value;
+		var workstart=document.getElementById('workstart').value;
+		var workend=document.getElementById('workend').value;
+		if(alumnicompany=="" || alumnicompany==null){
+			alert("Enter Company");
+			return false;
+		}
+		if(alumnidesignation=="" || alumnidesignation==null){
+			alert("Enter Designation");
+			return false;
+		}
+		if(workstart==null || workstart==""){
+			alert("Enter Start Date");
+			return false;
+		}
+		if((workend==null || workend=="") && !(x.checked)){
+			alert("Enter End Date");
+			return false;
+		}
+		var collegeuid=window.localStorage.getItem("collegeuid");
+    window.localStorage.setItem("collegeuid", collegeuid);
+    console.log(collegeuid);
+		if(x.checked){
+			firebase.database().ref("Users/Alumni/").child(collegeuid).child(myuid).child("Experience").push().set({
+				company:alumnicompany,
+				designation:alumnidesignation,
+				startdate:workstart
+			});
+		}
+		else{
+			firebase.database().ref("Users/Alumni/").child(collegeuid).child(myuid).child("Experience").push().set({
+				company:alumnicompany,
+				designation:alumnidesignation,
+				startdate:workstart,
+				enddate:workend
+			});	
+		}
+		reset();
+		return true;
+	}
+	
+	function reset(){
+		document.getElementById('company').value="";
+		document.getElementById('designation').value="";
+		document.getElementById('workstart').value="";
+		document.getElementById('workend').value="";
+		document.getElementById('present').checked=true;
+	}
+	var uid=window.localStorage.getItem('uid');
+		var collegeuid=window.localStorage.getItem("collegeuid");
+		window.localStorage.setItem("collegeuid", collegeuid);
+		document.getElementById('cont').innerHTML="";
+		firebase.database().ref("Users/Alumni/").child(collegeuid).child(uid).child("Experience").orderByChild("startdate").once("value", function(snapshot){
+			if(snapshot){
+				snapshot.forEach(function(child){
+					var alumnicompany=child.val().company;
+					var alumnidesignation=child.val().designation;
+					var startdate=child.val().startdate.replace(/-/g, "/");
+					if(child.val().enddate){
+						var enddate=child.val().enddate.replace(/-/g, "/");
+						document.getElementById('cont').innerHTML+="<div><label>"+alumnicompany+"</label><br>"+alumnidesignation+"<br><label>"+startdate+"- "+enddate+"</label></div>";
+					}
+					else{
+						document.getElementById('cont').innerHTML+="<div><label>"+alumnicompany+"</label><br>"+alumnidesignation+"<br><label>"+startdate+"- Present</label></div>";
+					}
+				});
+			}
+		});
+	
+	
+</script>
+<script>
+  var myurl;
+    //-------------------------------------
+  
+    var uploader = document.getElementById('uploader');
+    var fileButton = document.getElementById('fileButton');
+    fileButton.addEventListener('change', function(e){
+    var file = e.target.files[0];
+    var storageRef = firebase.storage().ref('img/'+file.name);
+    var task = storageRef.put(file);
+    task.on('state_changed', function progress(snapshot) {
+      var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
+      uploader.value = percentage;
+        snapshot.ref.getDownloadURL().then(url=>{
+          console.log(url);
+          window.localStorage.setItem("Myurl",url);
+          window.localStorage.setItem("imgurl",url);
+          
+          // document.querySelector('img').src = url;
+         if(percentage==100)
+         {
+           funcsub();
+         }
+  
+        })
+    }, function error(err) {
+  
+  
+    },function complete() {
+  
+    });
+  });
+  
+  
+  </script>
+</body>
+</html>

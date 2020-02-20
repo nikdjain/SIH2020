@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>DIRECTORATE NOTICES</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700" rel="stylesheet">
+
+<link rel="stylesheet" href="loading.css">
+<script src="https://use.fontawesome.com/939e9dd52c.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+TODO: Add SDKs for Firebase products that you want to use
+https://firebase.google.com/docs/web/setup#available-libraries -->
+<!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-storage.js"></script>
+<script src="firebase.js"></script>
+<script src="logout.js"></script>
+<script src="loading.js"></script>
+
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+#profile img
+        {
+            position: fixed;
+            top: 70px;
+            left: 70px;
+            float: left;
+            right: 0.5em;
+            border: 2px solid rgb(15, 15, 15);
+            width:140px;   
+            height: 180;
+            border-radius: 90px; 
+            margin-left:10px;
+        }
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+
+</style>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Add a gray background color with some padding */
+body {
+  font-family: Arial;
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background: #f1f1f1;
+}
+
+/* Header/Blog Title */
+.header {
+  padding: 30px;
+  font-size: 40px;
+  text-align: center;
+  background: white;
+}
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {   
+  float: left;
+  width: 100%;
+}
+
+
+/* Fake image */
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Add a card effect for articles */
+.card {
+   background-color: white;
+   padding: 20px;
+   margin-top: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+  margin-top: 20px;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+  .leftcolumn, .rightcolumn {   
+    width: 100%;
+    padding: 0;
+  }
+}
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: auto;
+}
+
+.submitbtn{
+  background-color: #4CAF50;
+  width: auto;
+  padding: 10px 18px;
+  
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+/* Center the image and position the close button */
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 5; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(1,1,1,0.7); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 40%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)} 
+  to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+  from {transform: scale(0)} 
+  to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
+}
+
+</style>
+<body>
+<script>
+  var cuid = window.localStorage.getItem('cuid');
+  var dbref=firebase.database().ref("Notices/");
+  dbref.once('value',function(snapshot){
+    snapshot.forEach(function(child){
+      var title, caption, desc, imageurl;
+    title=child.val().title;
+    caption=child.val().caption;
+    desc=child.val().desc;
+    imageurl=child.val().imageurl;
+
+    console.log(desc);
+    document.getElementById('abcd').innerHTML+='<div class="card"><h2>'
+        +title+'</h2><img style="max-height:500px; width:auto" src="'
+        +imageurl+'"></img><p>'
+        +caption+'</p><p>'
+        +desc+'</p> </div>';
+    });
+         
+  }
+  );  
+</script>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64" style="text-align: center"><br><br><br><b id="hello">Name</b></h3>
+  </div>
+  
+  <div class="w3-bar-block">
+
+  <div id="profile">
+                <img src="profile.png" alt="photo">
+          </div>
+          <a href="clgdash.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Dashboard</a> 
+    <a href="analysis.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Analysis</a> 
+    <a href="alumnirequest.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Alumni Requests</a> 
+    <a href="clgprofile.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">College Profile</a> 
+    <a href="clgnotices.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">College Notices</a> 
+    <a href="gennotices.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Directorate Notices</a>     
+    <a href="clgevents.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Intra College Events</a> 
+    <a href="intercollege2.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Inter College Events</a>
+    <a href="adminsearch.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Search</a> 
+ 
+
+    <a href="#" onclick="logout()" class="w3-bar-item w3-button w3-hover-white">Logout</a>
+  
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+  <span>Govt of Goa</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Header -->
+  <div class="w3-container" style="margin-top:80px" id="showcase">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Directorate Notices</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+  </div>
+  <div class="w3-row-padding">
+    
+  </div>
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+</script>
+
+
+  
+  <div class="row" id="abcd">
+    <!-- <div>
+      <div class="card">
+        <h2>TITLE HEADING</h2>
+        <h5>Title description, Dec 7, 2017</h5>
+        <div class="fakeimg" style="height:200px;">Image</div>
+        <p>Some text..</p>
+        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+      </div>
+      <div class="card">
+        <h2>TITLE HEADING</h2>
+        <h5>Title description, Sep 2, 2017</h5>
+        <div class="fakeimg" style="height:200px;">Image</div>
+        <p>Some text..</p>
+        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+      </div> -->
+    </div>
+    
+  </div>
+  <div id="id01" class="modal">
+  
+    <form class="modal-content animate" style="width: max-content;">
+      <div class="imgcontainer">
+        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+        
+      </div>
+  
+      <div class="container">
+        <table>
+          <tr>
+        <td><label for="image">Image:</label></td>
+        <td>	<div class="mainDiv" align="right">
+          <h1 align="left">Add Event</h1>
+          <progress id="uploader" value="0" max="100">0%</progress>
+          <input type="file" id="fileButton" value="upload"/>
+          <div id="myimg"></div>
+        </div>
+        <img height="50" width="50"/></td>
+        </tr>
+        <br>
+        <tr>
+        <td><label for="title">Title:</label></td>
+        <td><input type="text" style="width: 90%;" id="title"/></td>
+        </tr>
+        <br>
+        <tr>
+        <td><label for="caption">Caption:</label></td>
+        <td><input type="text" style="width: 90%;" id="caption"></td>
+        </tr>
+        <br>
+        <tr>
+        <td><label for="desc">Description:</label></td>
+        <td><input type="text" style="width: 90%;" id="desc"></td>
+        </tr>
+        <br>
+      </table>
+      </div>
+  
+      <div class="container" style="background-color:#f1f1f1">
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+        <input type="button" onclick="funcsub()" value="submit" class="submitbtn"  />
+
+      </div>
+    </form> 
+  </div>
+
+  <div id="load"></div>
+  <div id="contents">
+  </div>
+  <script>
+  function funcsub(){
+    var title, caption, desc, imageurl;
+    title=document.getElementById("title").value;
+    caption=document.getElementById("caption").value;
+    desc=document.getElementById("desc").value;
+    imageurl=window.localStorage.getItem("Myurl");
+ var cuid = window.localStorage.getItem('cuid');
+    firebase.database().ref("Users/College/"+cuid).child("Events/").push().set({
+      title:title,
+      caption:caption,
+      desc:desc,
+      imageurl:imageurl
+    });
+
+    alert("Event created successfully");
+    document.getElementById('id01').style.display='none';
+  }
+
+  </script>
+  <script>
+    var myurl;
+      //-------------------------------------
+    
+      var uploader = document.getElementById('uploader');
+      var fileButton = document.getElementById('fileButton');
+      fileButton.addEventListener('change', function(e){
+      var file = e.target.files[0];
+      var storageRef = firebase.storage().ref('img/'+file.name);
+      var task = storageRef.put(file);
+      task.on('state_changed', function progress(snapshot) {
+        var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
+        uploader.value = percentage;
+          snapshot.ref.getDownloadURL().then(url=>{
+            console.log(url);
+            window.localStorage.setItem("Myurl",url);
+
+            document.querySelector('img').src = url;
+    
+          })
+      }, function error(err) {
+    
+    
+      },function complete() {
+    
+      });
+    });
+    
+    
+    </script>
+  <script>
+  // Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+//print name
+document.getElementById('hello').innerHTML=window.localStorage.getItem('cname');
+</script>
+</body>
+</html>
+

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>ANALYSIS</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<link rel="stylesheet" href="loading.css">
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+#profile img
+        {
+            position: fixed;
+            top: 70px;
+            left: 70px;
+            float: left;
+            right: 0.5em;
+            border: 2px solid rgb(15, 15, 15);
+            width:140px;   
+            height: 180;
+            border-radius: 90px; 
+            margin-left:10px;
+        }
+ 
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+
+       
+
+</style>
+ <style>
+html, body, #container {
+  width: 80%;
+  height: 80%;
+  margin: 0;
+  padding: 0;
+ 
+}
+        </style>
+<body onload="count_status()">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64" style="text-align: center"><br><br><br><b id="hello">Name</b></h3>
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+  <script src="firebase.js"></script>
+  <script src="logout.js"></script>
+  
+  <script src="loading.js"></script>
+
+  
+  <div class="w3-bar-block">
+        <div id="profile">
+                <img src="profile.png" alt="photo">
+          </div>
+          <a href="clgdash.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Dashboard</a> 
+    <a href="analysis.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Analysis</a> 
+    <a href="alumnirequest.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Alumni Requests</a> 
+    <a href="clgprofile.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">College Profile</a> 
+    <a href="clgnotices.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">College Notices</a> 
+    <a href="gennotices.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Directorate Notices</a>     
+    <a href="clgevents.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Intra College Events</a> 
+    <a href="intercollege2.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Inter College Events</a>
+    <a href="adminsearch.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Search</a> 
+ 
+
+    <a href="#" onclick="logout()" class="w3-bar-item w3-button w3-hover-white">Logout</a>
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+  <span>Govt of Goa</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Header -->
+  <div class="w3-container" style="margin-top:80px" id="showcase">
+    
+    <h1 class="w3-xxxlarge w3-text-red"><b>ANALYSIS</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+  </div>
+  
+  
+  
+ 
+  <div id="load"></div>
+  <div id="contents">
+  </div>
+  
+
+  </div>
+  <div id="container" style="float: right;"></div>
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+
+    //print name
+    document.getElementById('hello').innerHTML=window.localStorage.getItem('cname');
+    </script>
+ 
+<script>
+var cur_email;
+var uid;
+var task=window.localStorage.getItem("task");
+firebase.auth().onAuthStateChanged(function(user) {
+              if (user) {
+                // User is signed in.
+                cur_email = user.email;
+                 uid = user.uid;
+                 console.log(uid);
+              }
+            });
+    var student=0;
+    var prof=0;
+    var job=0;
+    var mentor=0;
+    var business=0;
+    var investor=0;
+function count_status()
+{
+    firebase.database().ref("Users/Alumni/").once("value", function(snapshot){
+    snapshot.forEach(function(child){
+            console.log(uid);
+        if(child.key==uid)
+        {
+            console.log(child.key);
+            child.forEach(function(mychild)
+            {
+              x=mychild.val();
+              mychild.child("status").forEach(function(childStatus)
+                {
+                    var status=childStatus.val();
+                    console.log(status);
+                    if(status.toLowerCase()=="student")
+                    {
+                        student+=1;
+                    }
+                    if(status.toLowerCase()=="job")
+                    {
+                        job+=1;
+                    }
+                    if(status.toLowerCase()=="entreprenuer")
+                    {
+                        business+=1;
+                    }
+                    if(status.toLowerCase()=="investor")
+                    {
+                        investor+=1;
+                    }
+                    if(status.toLowerCase()=="mentor")
+                    {
+                        mentor+=1;
+                    }
+                    if(status.toLowerCase()=="professor")
+                    {
+                        prof+=1;
+                    }
+                });
+            });
+           
+            pie_chart(student,job,prof,mentor,business,investor);
+        }
+    });
+});
+}  //pie chart
+function pie_chart(s,j,p,m,b,i) {
+// set the data
+var myData = new Array(['Student', s], ['Prof', p], ['Investor', i], ['Mentor', m], ['Business', b], ['Job', j]);
+
+// create the chart
+var chart = anychart.pie();
+
+// set the chart title
+chart.title("Alumni Analysis Based On Professions");
+
+// add the data
+chart.data(myData);
+
+// sort elements
+chart.sort("desc");  
+
+// set legend position
+chart.legend().position("right");
+// set items layout
+chart.legend().itemsLayout("vertical");  
+
+// display the chart in the container
+chart.container('container');
+console.log("pie");
+chart.draw();
+
+}
+
+
+</script>
+<script src="https://static.anychart.com/js/8.0.1/anychart-core.min.js"></script>
+<script src="https://static.anychart.com/js/8.0.1/anychart-pie.min.js"></script>
+
+
+
+</body>
+</html>

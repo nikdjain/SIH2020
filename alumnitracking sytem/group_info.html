@@ -1,0 +1,94 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <style>
+            
+        </style>
+    </head>
+    <body>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+
+
+        <script>
+            // Your web app's Firebase configuration
+     var firebaseConfig = {
+    apiKey: "AIzaSyAl7M57kUhkIqtC6qQHoPTVoLoUVpzJFww",
+    authDomain: "alumni-1b987.firebaseapp.com",
+    databaseURL: "https://alumni-1b987.firebaseio.com",
+    projectId: "alumni-1b987",
+    storageBucket: "alumni-1b987.appspot.com",
+    messagingSenderId: "462415600832",
+    appId: "1:462415600832:web:1e59f6138796f05c91a125",
+    measurementId: "G-SC8PCL7EFJ"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  var uid;
+  var cur_email;
+  var count=0;
+  firebase.auth().onAuthStateChanged(function(user) {
+				  if (user) {
+				    // User is signed in.
+				    cur_email = user.email;
+				     uid = user.uid;
+				  }
+				});
+            //display group members
+            var group=window.localStorage.getItem("group_name");
+            var profile="profile1.jpg";
+            firebase.database().ref("Users/Alumni/").once("value", function(snapshot){
+		    snapshot.forEach(function(child){
+            child.forEach(function(mychild)
+            {
+                  x=mychild.val();
+                  mychild.child("Groups").forEach(function(childGroup)
+                    {
+                        var group1=childGroup.val();
+                        if(group==group1)
+                        {
+                            var block='<li class="media" style="margin-bottom:20px;">'+
+                                        '<img height="70px" width="70px" style="border-radius:50%;" src="'+profile+'" alt="...">'+
+                                        '<div class="media-body">'+
+                                        '<h5 style="padding:10 10 0 10;" class="mt-0 mb-1">'+x.name+'</h5>'+
+                                        '<p style="padding:0 0 0 10;">'+x.college+
+                                        '</p>'+
+                                        '</div>'+
+                                        '</li>';
+					        document.getElementById("search_list").innerHTML+=block;
+                            count+=1;
+                        }
+                        
+                    });
+            });	
+        });
+    });
+        </script>
+        <table align="center">
+            <tr>
+                <td>
+                    <h2 style="margin-top: 50px; margin-bottom: 40px; margin-left: 30px;">
+                        Group Members
+                    </h2>
+                    <ul id="search_list" style="padding: 20px;">
+            
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        </div>
+        
+    </body>
+</html>

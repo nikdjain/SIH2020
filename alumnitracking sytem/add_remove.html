@@ -1,0 +1,332 @@
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Search_Alumni</title>
+    <style>
+      .add_btn
+      {
+        float: right;
+        margin-left: 50px;
+      }
+      li
+      {
+        padding: 10px;
+      }
+      #search
+      {
+        margin-top: 50px;
+        text-align: center;
+      }
+      #load{
+    /* background: url('http://code.jquery.com/mobile/1.3.1/images/ajax-loader.gif') no-repeat 50% 50%; */
+    
+    display : block;
+    position : fixed;
+    z-index: 100;
+    background-image : url('http://loadinggif.com/images/image-selection/3.gif');
+    background-repeat : no-repeat;
+    background-position : center;
+    left : 0;
+    bottom : 0;
+    right : 0;
+    top : 0;
+}
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  </head>
+    <body>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+<div id="load"></div>
+    <div id="contents">
+    </div>
+<div id="search">
+  <input type="text" id="search_name" name="searchbox" placeholder="Enter name" style="text-align: center; margin-left: 50px;"/>
+
+  <input type="button" name="search" value="Search" onclick=" return searchforname()"/>
+
+  <input type="button" name="done" value="Done" onclick="done()"/>
+</div>
+<br>
+<table align="center">
+    <tr>
+        <td>
+            <ul id="search_list">
+
+            </ul>
+        </td>
+    </tr>
+</table>
+
+    <script src="/__/firebase/init.js"></script>
+<script>
+
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyAl7M57kUhkIqtC6qQHoPTVoLoUVpzJFww",
+    authDomain: "alumni-1b987.firebaseapp.com",
+    databaseURL: "https://alumni-1b987.firebaseio.com",
+    projectId: "alumni-1b987",
+    storageBucket: "alumni-1b987.appspot.com",
+    messagingSenderId: "462415600832",
+    appId: "1:462415600832:web:1e59f6138796f05c91a125",
+    measurementId: "G-SC8PCL7EFJ"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
+  //loading bar
+  document.onreadystatechange = function () {
+  var state = document.readyState
+  if (state == 'interactive') {
+       document.getElementById('contents').style.visibility="hidden";
+  } else if (state == 'complete') {
+      setTimeout(function(){
+         document.getElementById('interactive');
+         document.getElementById('load').style.visibility="hidden";
+         document.getElementById('contents').style.visibility="visible";
+      },1000);
+  }
+}
+  var x1;
+  var count=0;
+  var uid;
+  var cur_email;
+  var task=window.localStorage.getItem("task");
+  firebase.auth().onAuthStateChanged(function(user) {
+				  if (user) {
+				    // User is signed in.
+				    cur_email = user.email;
+				     uid = user.uid;
+				  }
+				});
+        if(task=="Remove")
+                group_members();
+        else if(task=="Add")
+                other_members();
+      //search alumni
+    function searchforname(){
+    document.getElementById("search_list").innerHTML="";
+    var s_name=document.getElementById('search_name').value;
+
+    firebase.database().ref("Users/Alumni/").once("value", function(snapshot){
+		snapshot.forEach(function(child){
+            child.forEach(function(mychild)
+            {
+                x=mychild.val();
+                check_name=x.name.toLowerCase();
+                console.log(check_name);
+                if(check_name.includes(s_name.toLowerCase()))
+                {
+                    profile="profile1.jpg";
+                    var block='<li class="media">'+
+                    '<img height="70px" width="70px" style="border-radius:50%;" src="'+profile+'" alt="...">'+
+                    '<div class="media-body">'+
+                    '<h5 style="padding:10 10 0 10;" class="mt-0 mb-1">'+x.name+'</h5>'+
+                    '<p style="padding:0 0 0 10;">'+x.college+
+                    '<input type="button" id="btn'+count+'"value="'+task+'" onclick="add_remove(this.id)" class="add_btn" name="'+x.email+
+                    '" placeholder="'+x.name+'"/>'+
+                    '</p>'+
+                    '</div>'+
+                    '</li>';
+				          	document.getElementById("search_list").innerHTML+=block;
+                    count+=1;
+                }
+            });	
+        });
+    });
+
+  }
+  function add_remove(id)
+  {
+      var todo=document.getElementById(id).value;
+      if(todo=="Add")
+      {
+        add_member(id);
+      }
+      else
+      {
+        remove_member(id);
+      }
+  }
+  function add_member(id)
+  {
+    var member=document.getElementById(id).name;
+    var uname=document.getElementById(id).placeholder;
+    var group=window.localStorage.getItem("group_name");
+    document.getElementById(id).value="Remove";
+    member=member.replace('@','');
+    member=member.replace('.','');
+    //add member to grp
+    firebase.database().ref('message/'+group+'/members/').child(member).set(uname);
+    //add grp name to alumni
+    firebase.database().ref("Users/Alumni/").once("value", function(snapshot){
+		snapshot.forEach(function(child){
+            child.forEach(function(mychild)
+            {
+                x=mychild.val();
+                check_email=x.email;
+                if(check_email==document.getElementById(id).name)
+                {
+                    firebase.database().ref("Users/Alumni/"+child.key+'/'+mychild.key).child("Groups").child(group).set(group);
+                }
+            });	
+        });
+    });
+  }
+  function done()
+  {
+    console.log("hi");
+    console.log(window.localStorage.getItem("task"));
+    if(window.localStorage.getItem("task")=="Add")
+    {
+    var group=window.localStorage.getItem("group_name");
+    var member=cur_email;
+    member=member.replace('@','');
+    member=member.replace('.','');
+    var uname;
+    firebase.database().ref("Users/Alumni/").once("value", function(snapshot){
+		snapshot.forEach(function(child){
+            child.forEach(function(mychild)
+            {
+                x=mychild.val();
+                check_email=x.email;
+                if(check_email==cur_email)
+                {
+                    uname=x.name;
+                    firebase.database().ref('message/'+group+'/members/').child(member).set(uname);
+                    firebase.database().ref("Users/Alumni/"+child.key+"/"+mychild.key).child("Groups").child(group).set(group);
+                }
+            });	
+        });
+    });
+    
+        window.alert("Members added to group");
+        window.location.href="chat.html";
+    }
+    else
+    {
+      window.alert("Members removed from group");
+        window.location.href="chat.html";
+    }
+  }
+
+  function remove_member(id)
+  {
+    var group=window.localStorage.getItem("group_name");
+    var member=document.getElementById(id).name;
+    document.getElementById(id).value="Add";
+    member=member.replace('@','');
+    member=member.replace('.','');
+    //remove member from grp
+          firebase.database().ref('message/'+group+'/members').child(member).remove();
+    //remove grp from member
+    firebase.database().ref("Users/Alumni/").once("value", function(snapshot){
+		snapshot.forEach(function(child){
+            child.forEach(function(mychild)
+            {
+                x=mychild.val();
+                check_email=x.email;
+                if(check_email==document.getElementById(id).name)
+                {
+                  mychild.child("Groups").forEach(function(childGroup)
+                    {
+                        var group1=childGroup.val();
+                        if(group==group1)
+                        firebase.database().ref("Users/Alumni/"+child.key+'/'+mychild.key+"/Groups").child(group1).remove();
+                    });
+                    
+                }
+            });	
+        });
+    });
+  }
+
+  //display group members
+  function group_members()
+  {
+      var group=window.localStorage.getItem("group_name");
+      var profile="profile1.jpg";
+      firebase.database().ref("Users/Alumni/").once("value", function(snapshot){
+		snapshot.forEach(function(child){
+            child.forEach(function(mychild)
+            {
+                  x=mychild.val();
+                  mychild.child("Groups").forEach(function(childGroup)
+                    {
+                        var group1=childGroup.val();
+                        if(group==group1 && x.email!=cur_email)
+                        {
+                            var block='<li class="media">'+
+                                        '<img height="70px" width="70px" style="border-radius:50%;" src="'+profile+'" alt="...">'+
+                                        '<div class="media-body">'+
+                                        '<h5 style="padding:10 10 0 10;" class="mt-0 mb-1">'+x.name+'</h5>'+
+                                        '<p style="padding:0 0 0 10;">'+x.college+
+                                        '<input type="button" id="btn'+count+'"value="'+task+'" onclick="add_remove(this.id)" class="add_btn" name="'+x.email+
+                                        '" placeholder="'+x.name+'"/>'+
+                                        '</p>'+
+                                        '</div>'+
+                                        '</li>';
+					                  document.getElementById("search_list").innerHTML+=block;
+                            count+=1;
+                        }
+                        
+                    });
+            });	
+        });
+    });
+  }
+  //display other members
+  function other_members()
+  {
+      var group=window.localStorage.getItem("group_name");
+      var profile="profile1.jpg";
+      firebase.database().ref("Users/Alumni/").once("value", function(snapshot){
+		  snapshot.forEach(function(child){
+            child.forEach(function(mychild)
+            {
+                  var flag=0;
+                  x=mychild.val();
+                  mychild.child("Groups").forEach(function(childGroup)
+                    {
+                        var group1=childGroup.val();
+                        if(group==group1 || x.email==cur_email)
+                        {
+                            flag=1;
+                        }
+                    });
+                    if(flag==0)
+                    {
+                        var block='<li class="media">'+
+                                        '<img height="70px" width="70px" style="border-radius:50%;" src="'+profile+'" alt="...">'+
+                                        '<div class="media-body">'+
+                                        '<h5 style="padding:10 10 0 10;" class="mt-0 mb-1">'+x.name+'</h5>'+
+                                        '<p style="padding:0 0 0 10;">'+x.college+
+                                        '<input type="button" id="btn'+count+'"value="'+task+'" onclick="add_remove(this.id)" class="add_btn" name="'+x.email+
+                                        '" placeholder="'+x.name+'"/>'+
+                                        '</p>'+
+                                        '</div>'+
+                                        '</li>';
+					    document.getElementById("search_list").innerHTML+=block;
+                        count+=1;
+                    }
+            });	
+        });
+    });
+  }
+</script>
+<br>
+    </body>
+  </html>

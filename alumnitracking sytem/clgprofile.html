@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>COLLEGE PROFILE</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<link rel="stylesheet" href="loading.css">
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+#profile img
+        {
+            position: fixed;
+            top: 70px;
+            left: 70px;
+            float: left;
+            right: 0.5em;
+            border: 2px solid rgb(15, 15, 15);
+            width:140px;   
+            height: 180;
+            border-radius: 90px; 
+            margin-left:10px;
+        }
+ 
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+
+       
+
+</style>
+<body>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64" style="text-align: center"><br><br><br><b id="hello">Name</b></h3>
+  </div>
+
+  
+  <div class="w3-bar-block">  
+        <div id="profile">
+                <img src="profile.png" alt="photo">
+          </div>
+          <a href="clgdash.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Dashboard</a> 
+    <a href="analysis.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Analysis</a> 
+    <a href="alumnirequest.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Alumni Requests</a> 
+    <a href="clgprofile.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">College Profile</a> 
+    <a href="clgnotices.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">College Notices</a> 
+    <a href="gennotices.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Directorate Notices</a>     
+    <a href="clgevents.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Intra College Events</a> 
+    <a href="intercollege2.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Inter College Events</a>
+    <a href="adminsearch.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Search</a> 
+ 
+
+    <a href="#" onclick="logout()" class="w3-bar-item w3-button w3-hover-white">Logout</a>
+  
+</div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+  <span>Govt of Goa</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Header -->
+  <div class="w3-container" style="margin-top:80px" id="showcase">
+    <h1 class="w3-jumbo"><b>Alumni Tracking System</b></h1>
+    <h1 class="w3-xxxlarge w3-text-red"><b>Profile</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+  </div>
+  
+  <div class="w3-container" id="profileinfo" style="margin-top:1px">
+    <h1 class="w3-xlarge w3-text-blue" id="myname"><b>College name:</b></h1>
+    <h1 class="w3-xlarge w3-text-blue" id="emailid"><b>Alumni email:</b></h1>
+    <h1 class="w3-xlarge w3-text-blue" id="phoneno"><b>Phone-No :</b></h1>
+    <h1 class="w3-xlarge w3-text-blue" id="address"><b>College Address :</b></h1>
+    <h1 class="w3-xlarge w3-text-blue" id="firstbatch"><b>First batch :</b></h1>
+    <h1 class="w3-xlarge w3-text-blue" id="deg" ><b>Degrees :</b></h1>
+    <h1 class="w3-xlarge w3-text-blue" id="ccode" ><b>College code: </b></h1>
+  </div>
+ 
+  
+  
+
+  </div>
+  <div id="load"></div>
+  <div id="contents">
+  </div>
+  <script src="logout.js"></script>
+  <script src="loading.js"></script>
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+
+document.getElementById('myname').innerHTML+=window.localStorage.getItem('cname');
+      document.getElementById('emailid').innerHTML+=window.localStorage.getItem('cemail');
+      document.getElementById('phoneno').innerHTML+=window.localStorage.getItem('cphone');
+      document.getElementById('address').innerHTML+=window.localStorage.getItem('caddress');
+      document.getElementById('firstbatch').innerHTML+=window.localStorage.getItem('cfirstbatch');
+      document.getElementById('deg').innerHTML+=window.localStorage.getItem('cdegree');
+      document.getElementById('ccode').innerHTML+=window.localStorage.getItem('ccode');
+
+//localStorage.clear();
+
+ //print name
+ document.getElementById('hello').innerHTML=window.localStorage.getItem('cname');
+    
+    </script>
+  
+
+</body>
+</html>

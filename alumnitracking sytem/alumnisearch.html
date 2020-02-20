@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>SEARCH</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<link rel="stylesheet" href="loading.css">
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+#profile img
+        {
+            position: fixed;
+            top: 70px;
+            left: 70px;
+            float: left;
+            right: 0.5em;
+            border: 2px solid rgb(15, 15, 15);
+            width:140px;   
+            height: 180;
+            border-radius: 90px; 
+            margin-left:10px;
+        }
+ 
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+
+       
+
+</style>
+<style>
+  span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 5; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(1,1,1,0.7); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 50%; /* Could be more or less, depending on screen size */
+}
+
+
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
+}
+
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  font-size: 12px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+</style>
+<body>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+ <!-- The core Firebase JS SDK is always required and must be listed first -->
+ <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+ 
+ <!-- TODO: Add SDKs for Firebase products that you want to use
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+ <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+ <script src="firebase.js"></script>
+  <script src="logout.js"></script>
+  <script src="loading.js"></script>
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-blue w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64" style="text-align: center"><br><br><br><br><b id="hello">Name</b></h3>
+  </div>
+
+  
+  <div class="w3-bar-block">
+        <div id="profile">
+          <img id="profilepic" alt="Photo">
+          </div>
+          <a href="profiletemp.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Intra College Events</a> 
+          <a href="intercollege.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Inter College Events</a> 
+          <a href="a.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Profile</a> 
+          <a href="notices.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Notices</a> 
+          <a href="noticesdir.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Directorate Notices</a> 
+          <a href="chat.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Chat</a> 
+          <a href="clgnetwork.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">College-Network</a> 
+         
+          <a href="alumnisearch.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Search</a>
+               <a href="#" onclick="logout()" class="w3-bar-item w3-button w3-hover-white">Logout</a>
+        
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-blue w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-blue w3-margin-right" onclick="w3_open()">☰</a>
+  <span>Govt of Goa</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Header -->
+  <div class="w3-container" style="margin-top:60px" id="showcase">
+    
+    <h1 class="w3-xxxlarge w3-text-blue"><b>SEARCH</b></h1>
+    <hr style="width:50px;border:5px solid blue" class="w3-round">
+  </div>
+  
+    
+  </div>
+
+  <center>
+    <input type="text" id="search_box" style="float:margin-right:100;" placeholder="Search ..." name="searchbox"/>
+  <button onclick="go()">Go</button>
+  <br>
+  <div class="dropdown">
+    <table>
+      <tr>
+        <td><button class="dropbtn">Apply filter:</button></td>
+  
+        <td><h2 id="task"></h2></td>
+      </tr>
+  </table>
+  
+     <!-- <h1 id="head" style="text-align: center;">
+      College in your State 
+  </h1> -->
+    <div class="dropdown-content">
+      <a id="alname" name="Alumni by Name" onclick="go1('alname')">Alumni by Name</a>
+      <a id="sclg" name="Alumni by College" onclick="go1('sclg')">Alumni by College</a>  
+      <a id="sname" name="College Name" onclick="go1('sname')">College Name</a>
+      <a id="syear" name="Alumni by Year" onclick="go1('syear')">Alumni by Year</a>
+      <a id="sdesgn" name="Alumni by Designation" onclick="go1('sdesgn')">Alumni by Designation</a>
+      <a id="sbranch" class="test" onclick="searchforBranch()" tabindex="-1"  >Alumni by Branch<span class="caret"></span></a>
+          <ul class="dropdown-menu" id="list">
+              
+          </ul>
+    </div>
+  </center>
+
+
+
+  <div id="id01" class="modal">
+  
+    <form class="modal-content animate" >
+      <div class="imgcontainer">
+        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+        
+      </div>
+      <h1 style="text-align: center;color:teal;" >PROFILE</h1>
+      <div class="container">
+          
+        <b>Name :</b><label id="name"></label>
+        <br>
+        <b>College :</b><label id="clg"></label>
+        <br>
+        <b>DOB</b><label id="dob"></label>
+        <br>
+        <b>Email id :</b><label id="email"></label>
+        <br>
+        <b>Phone-No :</b><label id="phone"></label>
+        <br>
+        <b>Graduation year: </b> <label id="passyear"></label>
+        <br>
+       <b>Degree :<b> <label id="degree"></label>
+        <br>
+       <b>Experience :<b> <label id="exper"></label>
+        <br>
+        
+        <br>
+          
+  
+      </div>
+  </form>
+  </div>
+      
+  
+  
+  <div id="id02" class="modal">
+    
+    <form class="modal-content animate" >
+      <div class="imgcontainer">
+        <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+        
+      </div>
+      <h1 style="text-align: center;color:teal;" >PROFILE</h1>
+      <div class="container">
+          
+        <b>College Name :</b><label id="clgname"></label>
+        <br>
+        <b>College Code:</b><label id="clgcode"></label>
+        <br>
+        <b>College Address: </b><label id="clgaddress"></label>
+        <br>
+        <b>Email id :</b><label id="clgemail"></label>
+        <br>
+        <b>Phone-No :</b><label id="clgphone"></label>
+        <br>
+        <b>Firstbatch </b> <label id="firstbatch"></label>
+        <br>
+       <b>Degrees :<b> <label id="degrees"></label>
+        <br>
+        
+        <br>
+  
+        
+      </div>
+  </form>
+  </div>
+  
+  
+  
+  
+  <table align="center" >
+      <tr>
+          <td>
+              <ul id="search_list" ><br>
+              </ul>
+          </td>
+      </tr>
+  </table>
+  
+  </div>
+  <div id="load"></div>
+  <div id="contents">
+  </div>
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+
+//search
+document.getElementById('sclg').addEventListener("click", function(){
+		document.getElementById('search_box').placeholder="Enter College Name";
+	});
+	
+	document.getElementById('sname').addEventListener("click", function(){
+		document.getElementById('search_box').placeholder="Enter College Name";
+	});
+	
+	document.getElementById('syear').addEventListener("click", function(){
+		document.getElementById('search_box').placeholder="Enter Year";
+	});
+	
+	document.getElementById('sbranch').addEventListener("click", function(){
+		document.getElementById('search_box').placeholder="Enter Branch";
+	});
+  document.getElementById('sdesgn').addEventListener("click", function(){
+		document.getElementById('search_box').placeholder="Enter Designation";
+	});
+    </script>
+ <script>
+
+  function go1(id)
+  {
+    var x=document.getElementById(id).name;
+    document.getElementById("task").innerHTML=x;  
+      window.localStorage.setItem("s",id);
+  }
+  function go()
+  {
+      var id1=window.localStorage.getItem("s");
+    
+      if(id1=='sclg')
+      {
+        searchforAlumniBycollege();
+      }
+      else if(id1=='sname')
+      {
+          searchforCollegename();
+      }
+      else if(id1=='syear')
+      {
+          searchforYear();
+      }
+      else if(id1=='alname')
+      {
+        searchforName();
+      }
+  
+      
+  }
+  
+  
+      
+  
+  // function serach(ph)
+  // {
+     
+  //     alert(ph);
+  //     if(ph==sclg)
+  //     {
+  //         alter("College");
+  //         searchforcollege();
+  //     }
+  //     else if(ph=="sname")
+  //     {
+  //         document.getElementById("sname")
+  //         searchforname();
+  //     }
+  //     else if(ph=="syear")
+  //     {
+  //         searchforYear();
+  //     }
+  //     else if(ph=="sbranch")
+  //     {
+  //         searchforBranch();
+  //     }
+  // }
+  
+  
+  
+  function searchforBranch()
+    {
+    document.getElementById("task").innerHTML="Alumni by Branch";  
+      var count=0;
+      document.getElementById("search_list").innerHTML="";
+      firebase.database().ref("Degree/").once("value",function(snapshot){
+          snapshot.forEach(function(child){
+              x=child.val();
+              document.getElementById("search_box").innerHTML="";
+              document.getElementById("search_box").setAttribute('Placeholder','Select branch from list');
+          document.getElementById("list").innerHTML+="<option value="+x +" onclick='s_branch(this.value)'>"+x+"</option>"
+          
+          });
+      });
+      var s_name=document.getElementById("list");
+      s_branch(s_name);
+    }
+  
+    function s_branch(s_name){
+      document.getElementById("search_list").innerHTML="";
+    firebase.database().ref("Users/Alumni/").once("value", function(snapshot){
+        snapshot.forEach(function(mychild){
+          mychild.forEach(function(child){
+            var x=child.val();
+            var check_name=x.degree;
+            //img height="70px" width="70px" style="border-radius:50%;"  src="+profile+" alt="...">'
+            if(check_name.includes(s_name))
+          {
+           profile=child.val().imageurl;
+            var block='<li class="media" style="margin-bottom:20px;" value="'+child.key+'">'+
+                      '<img height="70px" width="70px" style="border-radius:50%" src="'+profile+'" alt="...">'+
+                        '<div class="media-body">'+
+                        "<label onclick=func1('"+mychild.key+"','"+child.key+"')>"+x.name+"</label>"
+                        +'</div></li>';
+              document.getElementById("search_list").innerHTML+=block;
+          }
+            
+  
+  
+          });
+        });
+          });
+  
+    }
+  
+    function searchforCollegename()
+    {
+      document.getElementById("search_box").innerHTML="";
+      var s_name=document.getElementById("search_box").value;
+      document.getElementById("search_list").innerHTML="";
+  
+      firebase.database().ref("Users/College/").on("value",function(snapshot){
+        snapshot.forEach(function(child){
+          var x=child.val().name;
+          if(s_name.toLocaleLowerCase()==x.toLocaleLowerCase()) 
+          {
+  
+             profile="profile1.jpg";
+            var block='<li class="media" style="margin-bottom:20px;" value="'+child.key+'">'+
+                      '<img height="70px" width="70px" style="border-radius:50%" src="'+profile+'" alt="...">'+
+                        '<div class="media-body">'+
+                        "<label onclick=func2('"+child.key+"')>"+child.val().name+"</label>"
+                        +'</div></li>';
+              document.getElementById("search_list").innerHTML+=block;
+          }
+         
+        });
+      });
+    }
+  
+    function searchforAlumniBycollege()
+      {
+         var s_clg=document.getElementById("search_box").value;
+         document.getElementById("search_box").innerHTML="";
+          document.getElementById("search_box").setAttribute('Placeholder','Enter college name');
+          document.getElementById("search_list").innerHTML=""
+          var clg_key;
+              //college and college uid
+              firebase.database().ref("Users/College").once("value",function(snapshot){
+                  snapshot.forEach(function(child){
+                      var clg_name=child.val().name.toLowerCase();
+                      if(s_clg.toLowerCase()==clg_name)
+                      {
+                        clg_key=child.key; 
+                      }
+                            
+                  });
+              });
+  
+              firebase.database().ref("Users/Alumni/").once("value",function(snapshot){
+                      snapshot.forEach(function(child){
+                        if(child.key==clg_key)
+                        {
+                          child.forEach(function(mychild){
+  
+                          profile=mychild.val().imageurl;
+            var block='<li class="media" style="margin-bottom:20px;" value="'+mychild.key+'">'+
+                      '<img height="70px" width="70px" style="border-radius:50%" src="'+profile+'" alt="...">'+
+                        '<div class="media-body">'+
+                        "<label onclick=func1('"+child.key+"','"+mychild.key+"')>"+mychild.val().name+"</label>"
+                        +'</div></li>';
+              document.getElementById("search_list").innerHTML+=block;
+                      
+                          }
+                          )
+                        }
+                      });
+              });
+             
+              // firebase.auth().getUserByEmail('rujutarajput1999@gmail.com').then(function(userRecord){
+              //   console.log('Successfully fetch'.userRecord.toJSON());
+              // })
+              // .catch(function(error){
+              //   console.log('Error ',error);
+              // });
+             // console.log(mail);
+  
+     }
+    
+  function searchforYear(){
+  
+      document.getElementById("search_box").innerHTML ="";
+       
+      var s_name=document.getElementById("search_box").value;
+      document.getElementById("search_list").innerHTML="";
+    //console.log("hey");
+    firebase.database().ref("Users/Alumni/").once("value", function(snapshot){
+      snapshot.forEach(function(mychild){
+        mychild.forEach(function(child){
+          var x=child.val();
+          var checkyear=x.passyear;
+          if(checkyear==s_name)
+          {
+            profile=child.val().imageurl;
+            var block='<li class="media" style="margin-bottom:20px;" value="'+child.key+'">'+
+                      '<img height="70px" width="70px" style="border-radius:50%" src="'+profile+'" alt="...">'+
+                        '<div class="media-body">'+
+                        "<label onclick=func1('"+mychild.key+"','"+child.key+"')>"+x.name+"</label>"
+                        +'</div></li>';
+              document.getElementById("search_list").innerHTML+=block;
+          }
+        });
+      });
+    });
+    }
+  
+  function searchforName(){
+    console.log("name");
+  //document.getElementById("search_box").innerHTML ="";
+   
+  var s_name=document.getElementById("search_box").value;
+  console.log(s_name);
+  document.getElementById("search_list").innerHTML="";
+  //console.log("hey");
+  firebase.database().ref("Users/Alumni/").once("value", function(snapshot){
+  snapshot.forEach(function(mychild){
+    mychild.forEach(function(child){
+      var x=child.val();
+      var checkname=x.name.toLowerCase();
+      if(checkname==s_name.toLowerCase())
+      {
+        profile=child.val().imageurl;
+        var block='<li class="media" style="margin-bottom:20px;" value="'+child.key+'">'+
+                  '<img height="70px" width="70px" style="border-radius:50%" src="'+profile+'" alt="...">'+
+                    '<div class="media-body">'+
+                    "<label onclick=func1('"+mychild.key+"','"+child.key+"')>"+x.name+"</label>"
+                    +'</div></li>';
+          document.getElementById("search_list").innerHTML+=block;
+      }
+    });
+  });
+  });
+  }
+  
+    function func1(arg, arg2)
+    {
+    console.log(arg);
+    console.log(arg2);
+    // var uuid = window.localStorage.getItem('uuid');
+    // var colluid = window.localStorage.getItem('colluid');
+    document.getElementById('id01').style.display='block';
+  var dbref = firebase.database().ref('Users/Alumni/').child(arg).child(arg2);
+  var dbref1 = dbref.child('Experience/');
+  dbref.once('value',function(snapshot)
+  {
+      document.getElementById('name').innerHTML=snapshot.val().name;
+      document.getElementById('clg').innerHTML=snapshot.val().college;
+      document.getElementById('phone').innerHTML=snapshot.val().phone;
+      document.getElementById('email').innerHTML=snapshot.val().email;
+      document.getElementById('passyear').innerHTML=snapshot.val().passyear;
+      document.getElementById('degree').innerHTML=snapshot.val().degree;
+      document.getElementById('dob').innerHTML=snapshot.val().dob;
+      dbref1.once('value',function(child2)
+      {
+        child2.forEach(function(child1){
+          document.getElementById('exper').innerHTML= "Company:" +child1.val().company+"<br>"
+        +"Designation:" +child1.val().designation+"<br>"
+        +"Start Date:" +child1.val().startdate+"<br>";
+        if(child1.val().enddate!=null)
+        {
+          document.getElementById('exper').innerHTML+"End date: "+child1.val().enddate+"<br>";
+        } 
+        });
+  
+        
+      });
+  
+  });
+  
+     }
+  
+     function func2(arg)
+     {
+        document.getElementById('id02').style.display='block';
+  var dbref = firebase.database().ref('Users/College/').child(arg);
+  dbref.once('value',function(snapshot)
+  {
+      document.getElementById('clgname').innerHTML=snapshot.val().name;
+      document.getElementById('clgcode').innerHTML=snapshot.val().collegecode;
+      document.getElementById('clgphone').innerHTML=snapshot.val().phone;
+      document.getElementById('clgemail').innerHTML=snapshot.val().email;
+      document.getElementById('firstbatch').innerHTML=snapshot.val().firstbatch;
+      document.getElementById('degrees').innerHTML=snapshot.val().degree;
+      document.getElementById('clgaddress').innerHTML=snapshot.val().address;
+      
+  
+  });
+  
+     }
+
+     function searchforDesignation(){
+		var designation=document.getElementById("search_box").value;
+		designation=designation.toLowerCase();
+		firebase.database().ref("Users/Alumni/").once("value", function(snapshot){
+			snapshot.forEach(function(child){
+				child.forEach(function(mychild){
+					mychild.child("Experience").forEach(function(eachobject){
+						var currentdesignation=eachobject.val().designation.toLowerCase();
+						if(currentdesignation.includes(designation)){
+							profile=mychild.val().imageurl;
+							var block='<li class="media" value="'+child.key+'">'+
+							'<img height="70px" width="70px" style="border-radius:50%" src="'+profile+'" alt="...">'+
+							'<div class="media-body">'+
+							"<label onclick=func1('"+child.key+"','"+mychild.key+"')>"+mychild.val().name+"</label>"
+							+'</div></li>';
+							document.getElementById("search_list").innerHTML+=block;
+						}
+					});
+				});
+			});
+		});
+	}
+  
+     document.getElementById('hello').innerHTML=window.localStorage.getItem('name');
+     document.getElementById('profilepic').setAttribute('src',window.localStorage.getItem('imgurl'));
+  </script>
+  <script>
+  
+    // Get the modal
+    var modal = document.getElementById('id01');
+    
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    
+    
+    
+    </script> 
+
+</body>
+</html>

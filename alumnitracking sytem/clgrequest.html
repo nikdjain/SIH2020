@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>COLLEGE REQUEST</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<link rel="stylesheet" href="loading.css">
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+#profile img
+        {
+            position: fixed;
+            top: 70px;
+            left: 70px;
+            float: left;
+            right: 0.5em;
+            border: 2px solid rgb(15, 15, 15);
+            width:140px;   
+            height: 180;
+            border-radius: 90px; 
+            margin-left:10px;
+        }
+ 
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+
+       
+
+</style>
+<style>
+    * {box-sizing: border-box;}
+    body {font-family: Verdana, sans-serif; margin:0}
+    
+    
+    /* Fading animation */
+    .fade {
+      -webkit-animation-name: fade;
+      -webkit-animation-duration: 1.5s;
+      animation-name: fade;
+      animation-duration: 1.5s;
+    }
+    
+    @-webkit-keyframes fade {
+      from {opacity: .4} 
+      to {opacity: 1}
+    }
+    
+    @keyframes fade {
+      from {opacity: .4} 
+      to {opacity: 1}
+    }
+    
+    /* On smaller screens, decrease text size */
+    @media only screen and (max-width: 300px) {
+      .prev, .next,.text {font-size: 11px}
+    }
+    
+    
+    .show {display:block;}
+    
+    
+    
+    /* Set a style for all buttons */
+    button {
+      background-color:#4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+    .vbutton{
+        background-color:teal;
+        width:45%;
+        margin-left: 20px;
+    
+    }
+    
+    button:hover {
+      opacity: 0.8;
+    }
+    
+    /* Extra styles for the cancel button */
+    .cancelbtn {
+      width: auto;
+      padding: 10px 18px;
+      background-color: #f44336;
+    }
+    
+    /* Center the image and position the close button */
+    .imgcontainer {
+      text-align: center;
+      
+      position: relative;
+    }
+    
+    
+    
+    .container {
+      padding-left: 20px;
+      padding-bottom: 20px;
+      padding-right: 20px;
+    }
+    
+    span.psw {
+      float: right;
+      padding-top: 16px;
+    }
+    
+    /* The Modal (background) */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 5; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(1,1,1,0.7); /* Black w/ opacity */
+      padding-top: 60px;
+    }
+    
+    /* Modal Content/Box */
+    .modal-content {
+      background-color: #fefefe;
+      margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+      border: 1px solid #888;
+      width: 50%; /* Could be more or less, depending on screen size */
+    }
+    
+    
+    /* The Close Button (x) */
+    .close {
+      position: absolute;
+      right: 25px;
+      top: 0;
+      color: #000;
+      font-size: 35px;
+      font-weight: bold;
+    }
+    
+    .close:hover,
+    .close:focus {
+      color: red;
+      cursor: pointer;
+    }
+    
+    /* Add Zoom Animation */
+    .animate {
+      -webkit-animation: animatezoom 0.6s;
+      animation: animatezoom 0.6s
+    }
+    
+    @-webkit-keyframes animatezoom {
+      from {-webkit-transform: scale(0)} 
+      to {-webkit-transform: scale(1)}
+    }
+      
+    @keyframes animatezoom {
+      from {transform: scale(0)} 
+      to {transform: scale(1)}
+    }
+    
+    /* Change styles for span and cancel button on extra small screens */
+    @media screen and (max-width: 300px) {
+      span.psw {
+         display: block;
+         float: none;
+      }
+    
+    }
+    
+    </style>
+    
+<body>
+    <link rel="stylesheet" type="text/css" href="modal.css">
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+    
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+     TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> --> 
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+    <script src="firebase.js"></script>
+    <script src="logout.js"></script>
+    <script src="loading.js"></script>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-green w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+    <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+    <div class="w3-container">
+      <h3 class="w3-padding-64" style="text-align: center"><br><br><br><b>DIRECTORATE</b></h3>
+    </div>
+  
+    
+    <div class="w3-bar-block">
+          <div id="profile">
+                  <img src="profile.png" alt="photo">
+            </div>
+      <a href="dirdash.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Dashboard</a> 
+      <a href="clgrequest.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">College Requests</a> 
+     
+      <a href="dirnotices.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Notices</a> 
+      <a href="direvents.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Events</a> 
+      <a href="dirsearch.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Search</a> 
+           <a href="#" onclick="logout()" class="w3-bar-item w3-button w3-hover-white">Logout</a>
+    
+    </div>
+  </nav>
+  
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-green w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-green w3-margin-right" onclick="w3_open()">☰</a>
+  <span>Govt of Goa</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Header -->
+  <div class="w3-container" style="margin-top:80px" id="showcase">
+   
+    <h1 class="w3-xxxlarge w3-text-green"><b>College Requests</b></h1>
+    <hr style="width:50px;border:5px solid green" class="w3-round">
+  </div>
+  <div class="w3-container" id="Requests" style="margin-top:1px">
+    <h1 class="w3-xxxlarge w3-text-Green"><b>Pending Request:</b></h1>
+    <p id="para"></p>
+    <div id="id01" class="modal">
+  
+        <form class="modal-content animate" action="/action_page.php" id = "formid">
+          <div class="imgcontainer">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+            
+          </div>
+          <h1 style="text-align: center;color:teal;" >ADMIN</h1>
+          <div class="container">
+              
+            <b>College Name : </b><label id="clgname"></label>
+            <br>
+            <b>College Code : </b><label id="clgcode"></label>
+            <br>
+            <b>Email id : </b><label id="email1"></label>
+            <br>
+            <b>Phone-No : </b><label id="phone1"></label>
+            <br>
+            <b>Address : </b><label id="address1"></label>
+            <br>
+            <b>First Batch pass out year : </b><label id="year1"></label>
+            <br>
+            <b>Degree : </b><label id="degree1"></label>
+            <br>
+            <br>
+              
+            <input type="button" class="vbutton" onclick="verifyadmin()" value="Verify admin">
+            <input type="button" class="vbutton" onclick="deleterequest()" value="Delete admin">
+      
+            
+          </div>
+      
+          
+        </form> 
+      </div>
+
+     </div> 
+ 
+ 
+  
+  
+
+  </div>
+
+  <div id="load"></div>
+  <div id="contents">
+  </div>
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+</script>
+ 
+ <script type="text/javascript">
+	var db = firebase.database().ref('Requests/College/');
+document.getElementById("para").innerHTML="";
+	db.once('value', function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+     // firebase.database().ref('Verified/').push(childSnapshot.val());
+      var childData = childSnapshot.val();
+      var mykey = childSnapshot.key;
+      console.log(childData);
+      var emma = childSnapshot.child('email').val();
+      var collname = childSnapshot.child('name').val();
+      document.getElementById("para").innerHTML+= "<label style onclick=loaddata('"+mykey+"') id="+mykey+">"+collname+" "+emma+"</label>"+"<hr>";
+
+    });
+});
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+function loaddata(varr) {
+    console.log(varr);
+   document.getElementById('id01').style.display='block' ;
+    var dbref = firebase.database().ref('Requests/College/' + varr);
+    dbref.once('value', function(snapshot) {
+    var name = snapshot.val().name;
+    var collegecode = snapshot.val().collegecode;
+    var email = snapshot.val().email;
+    var phone = snapshot.val().phone;
+    var address = snapshot.val().address;
+    var firstbatch = snapshot.val().firstbatch;
+    var degree = snapshot.val().degree;
+    document.getElementById('clgname').innerHTML= name;
+    document.getElementById('clgcode').innerHTML= collegecode;
+    document.getElementById('email1').innerHTML= email;
+    document.getElementById('phone1').innerHTML= phone;
+    document.getElementById('address1').innerHTML= address;
+    document.getElementById('year1').innerHTML= firstbatch;
+    document.getElementById('degree1').innerHTML= degree;
+    window.localStorage.setItem('dbkey',varr);
+    window.localStorage.setItem('collegecode',collegecode);
+    window.localStorage.setItem('phone',phone);
+    window.localStorage.setItem('address',address);
+    window.localStorage.setItem('firstbatch',firstbatch);
+    window.localStorage.setItem('degree',degree);
+    window.localStorage.setItem('name',name);
+    window.localStorage.setItem('email',email);
+   
+
+});
+
+ 
+}
+
+function verifyadmin() {
+  var mykey = window.localStorage.getItem('dbkey');
+  var mydata = window.localStorage.getItem('obj');
+  console.log(mydata);
+  //console.log(window.localStorage.getItem('email'));
+  var email2 = window.localStorage.getItem('email');
+  firebase.auth().createUserWithEmailAndPassword(email2, "@goa123")
+      .then(function (){
+          var uid = firebase.auth().currentUser.uid; // The UID of recently created user on firebase
+          console.log(email2);
+          console.log(uid);
+          var degrees= window.localStorage.getItem('degree').split(',');
+          var dbref = firebase.database().ref('Users/College/').child(uid).set({
+
+name: window.localStorage.getItem('name'),
+address: window.localStorage.getItem('address'),
+degree: degrees,
+phone: window.localStorage.getItem('phone'),
+collegecode: window.localStorage.getItem('collegecode'),
+firstbatch: window.localStorage.getItem('firstbatch'),
+email: email2
+
+});
+firebase.database().ref('/Requests/College/'+mykey).remove();
+window.localStorage.setItem('email',email2);
+alert("Admin verified!")
+document.getElementById('id01').style.display='none';
+location.reload();
+
+
+      }).catch(function failure(error) {
+
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          console.log(errorCode + " " + errorMessage);
+
+      });
+ 
+}
+
+function deleterequest()
+{
+    var mykey = window.localStorage.getItem('dbkey');
+
+  firebase.database().ref('/Requests/College/'+mykey).remove();
+  alert("Request deleted!");
+  document.getElementById('id01').style.display='none';
+  location.reload();
+}
+
+</script>
+
+
+
+</body>
+</html>

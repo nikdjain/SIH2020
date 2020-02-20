@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>Network</title>
+	<!--<link  rel="icon" type="image/png" href="https://www.seekpng.com/png/full/188-1882776_form-icon-form-icon-png.png"/>-->
+	</head>
+	
+	<style>
+	
+	.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 5; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(1,1,1,0.7); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 50%; /* Could be more or less, depending on screen size */
+}
+	
+	.yearbox{
+		width:fit-content;
+		border: 0.5px solid black;
+		padding: 5px;
+		
+	}
+	
+	#table1{
+		border-spacing:15px;
+		border-collapse:separate;
+	}
+	
+	#table2{
+		border-spacing:15px;
+		border-collapse:separate;
+	}
+	
+	</style>
+	
+	<body>
+	
+	<table id="table1">
+	</table>
+	<div id="displayyear"></div>
+	<table id="table2">
+	</table>
+	<div id="displaydegree"></div>
+	<table id="table3">
+	</table>
+	
+	<div id="id01" class="modal">
+  
+  <form class="modal-content animate" >
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+      
+    </div>
+    <h1 style="text-align: center;color:teal;" >PROFILE</h1>
+    <div class="container">
+        
+      <b>Name :</b><label id="name"></label>
+      <br>
+      <b>College :</b><label id="clg"></label>
+      <br>
+      <b>DOB</b><label id="dob"></label>
+      <br>
+      <b>Email id :</b><label id="email"></label>
+      <br>
+      <b>Phone-No :</b><label id="phone"></label>
+      <br>
+      <b>Graduation year: </b> <label id="passyear"></label>
+      <br>
+     <b>Degree :<b> <label id="degree"></label>
+      <br>
+     <b>Experience :<b> <label id="exper"></label>
+      <br>
+      
+      <br>
+    </div>
+</form>
+</div>
+	
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+
+<script>
+
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyAl7M57kUhkIqtC6qQHoPTVoLoUVpzJFww",
+    authDomain: "alumni-1b987.firebaseapp.com",
+    databaseURL: "https://alumni-1b987.firebaseio.com",
+    projectId: "alumni-1b987",
+    storageBucket: "alumni-1b987.appspot.com",
+    messagingSenderId: "462415600832",
+    appId: "1:462415600832:web:1e59f6138796f05c91a125",
+    measurementId: "G-SC8PCL7EFJ"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>	
+
+<script>
+
+	var uid="iWF0Yo40PBflO9MLHnFv1bjCz772";
+	firebase.database().ref("Users/Alumni/").child(uid).orderByChild("passyear").once("value", function(snapshot){
+		var x=1949;
+		document.getElementById('table1').innerHTML="";
+		snapshot.forEach(function(child){
+			if(x!=child.val().passyear){
+				x=child.val().passyear;
+				document.getElementById('table1').innerHTML+="<tr><td><label id='"+x+"' class='yearbox' onclick=showyear(this.id)>"+x+"</label></td></tr>";
+			}
+		});
+	});
+	
+	function showyear(year){
+		console.log(year);
+		document.getElementById('displayyear').innerHTML=year;
+		document.getElementById('displaydegree').innerHTML="";
+		document.getElementById('table3').innerHTML="";
+		firebase.database().ref("Users/Alumni/").child(uid).orderByChild("passyear").equalTo(year)
+			.once("value", function(snapshot){
+				var x="";
+				document.getElementById('table2').innerHTML="";
+				snapshot.forEach(function(child){
+					if(x!=child.val().degree){
+						x=child.val().degree;
+						document.getElementById('table2').innerHTML+="<tr><label id='"+x+"' class='yearbox'onclick=showdegree('"+year+"',this.id)>"+x+"</label></tr>";
+					}
+				});	
+			});
+	}
+	
+	function showdegree(year, degree){
+		firebase.database().ref("Users/Alumni/").child(uid).orderByChild("passyear").equalTo(year)
+			.once("value", function(snapshot){
+				document.getElementById('table3').innerHTML="";
+				document.getElementById('displaydegree').innerHTML=degree;
+				snapshot.forEach(function(child){
+					if(child.val().degree==degree){
+						document.getElementById('table3').innerHTML+="<tr><label id='"+child.key+"' class='yearbox'onclick=showprofile(this.id)>"+child.val().name+"</label></tr>";
+					}
+				});
+			});
+	}
+	
+	function showprofile(alumniuid){
+		console.log(alumniuid);
+		document.getElementById('id01').style.display='block';
+		var dbref = firebase.database().ref('Users/Alumni/').child(uid).child(alumniuid);
+		var dbref1 = dbref.child('Experience/');
+		dbref.once('value',function(snapshot){
+    document.getElementById('name').innerHTML=snapshot.val().name;
+    document.getElementById('clg').innerHTML=snapshot.val().college;
+    document.getElementById('phone').innerHTML=snapshot.val().phone;
+    document.getElementById('email').innerHTML=snapshot.val().email;
+    document.getElementById('passyear').innerHTML=snapshot.val().passyear;
+    document.getElementById('degree').innerHTML=snapshot.val().degree;
+    document.getElementById('dob').innerHTML=snapshot.val().dob;
+    dbref1.once('value',function(child2)
+    {
+      child2.forEach(function(child1){
+        document.getElementById('exper').innerHTML= "Company:" +child1.val().company+"<br>"
+      +"Designation:" +child1.val().designation+"<br>"
+      +"Start Date:" +child1.val().startdate+"<br>";
+      if(child1.val().enddate!=null)
+      {
+        document.getElementById('exper').innerHTML+"End date: "+child1.val().enddate+"<br>";
+      } 
+      });
+
+      
+    });
+
+});
+	}
+	var modal = document.getElementById('id01');
+  
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+  }
+</script>
+	</body>
+</html>

@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>CHAT</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<link rel="stylesheet" href="loading.css">
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+#profile img
+        {
+            position: fixed;
+            top: 70px;
+            left: 70px;
+            float: left;
+            right: 0.5em;
+            border: 2px solid rgb(15, 15, 15);
+            width:140px;   
+            height: 180;
+            border-radius: 90px; 
+            margin-left:10px;
+        }
+ 
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+
+       
+
+</style>
+
+<style>
+  *{
+box-sizing:border-box;
+}
+body{
+background-color:white;
+font-family:Arial;
+}
+#container{
+width:750px;
+height:710px;
+background:rgb(230, 228, 228);
+margin:0 auto;
+font-size:0;
+border-radius:5px;
+overflow:hidden;
+border: 1px;
+border-color: black;
+}
+aside{
+width:260px;
+height:800px;
+background-color:rgb(230, 228, 228);
+display:inline-block;
+font-size:15px;
+vertical-align:top;
+overflow-y:scroll;
+}
+main{
+width:490px;
+height:800px;
+display:inline-block;
+font-size:15px;
+vertical-align:top;
+border: 2px;
+}
+
+aside header{
+padding:30px 20px;
+}
+aside input{
+width:100%;
+height:50px;
+line-height:50px;
+padding:0 20 0 20;
+background-color:#bdbfc7;
+border:none;
+border-radius:3px;
+color:#fff;
+background-repeat:no-repeat;
+background-position:170px;
+background-size:40px;
+}
+aside input::placeholder{
+color:#fff;
+}
+aside ul{
+padding-left:0;
+margin:0;
+list-style-type:none;
+height:690px;
+}
+aside li{
+padding:10px;
+}
+aside li:hover{
+background-color:#babeca;
+}
+h2,h3{
+margin:0;
+}
+aside li div{
+display:inline-block;
+vertical-align:top;
+margin-top:12px;
+}
+aside li h2{
+font-size:14px;
+color:#fff;
+font-weight:normal;
+margin-bottom:5px;
+}
+aside li h3{
+font-size:12px;
+color:#7e818a;
+font-weight:normal;
+}
+.green{
+background-color:#58b666;
+}
+.orange{
+background-color:#ff725d;
+}
+.blue{
+background-color:#6fbced;
+margin-right:0;
+margin-left:7px;
+}
+
+main header{
+height:90px;
+padding:20px 20px 30px 5px;
+}
+main header > *{
+display:inline-block;
+vertical-align:top;
+}
+main header img:first-child{
+border-radius:50%;
+}
+main header img:last-child{
+width:24px;
+margin-top:8px;
+}
+main header div{
+margin-left:10px;
+margin-right:145px;
+}
+main header h2{
+font-size:22px;
+margin-top: 5px;
+}
+main header h3{
+font-size:14px;
+font-weight:normal;
+color:#7e818a;
+}
+
+#chat{
+padding-left:0;
+margin:0;
+list-style-type:none;
+overflow-y:scroll;
+height:535px;
+border-top:2px solid #fff;
+border-bottom:2px solid #fff;
+}
+#chat li{
+padding:10px 30px;
+max-width: 800PX;
+  word-wrap: break-word;
+}
+#chat h2,#chat h3{
+display:inline-block;
+font-size:13px;
+font-weight:normal;
+}
+#chat h3{
+color:rgb(12, 11, 11);
+}
+#chat .entete{
+margin-bottom:5px;
+}
+#chat .message{
+padding:5px 10px 5px 10px;
+color:#fff;
+line-height:25px;
+max-width:90%;
+display:inline-block;
+text-align:left;
+border-radius:5px;
+}
+#chat .me{
+text-align:right;
+}
+#chat .you .message{
+background-color:#58b666;
+}
+#chat .me .message{
+background-color:#6fbced;
+}
+#chat .triangle{
+width: 0;
+height: 0;
+border-style: solid;
+border-width: 0 10px 10px 10px;
+}
+#chat .you .triangle{
+border-color: transparent transparent #58b666 transparent;
+margin-left:15px;
+}
+#chat .me .triangle{
+border-color: transparent transparent #6fbced transparent;
+margin-left:375px;
+}
+
+main footer{
+height:80px;
+padding: 10px;
+}
+main footer textarea{
+resize:none;
+border:2px;
+display:block;
+width:80%;
+height:60px;
+border-radius:3px;
+padding:20px;
+font-size:13px;
+margin-bottom:13px;
+float: left;
+}
+main footer textarea::placeholder{
+color:rgb(121, 116, 116);
+}
+main footer img{
+height:30px;
+cursor:pointer;
+}
+main footer a{
+text-decoration:none;
+text-transform:uppercase;
+font-weight:bold;
+color:white;
+vertical-align:top;
+margin-left:333px;
+margin-top:5px;
+display:inline-block;
+}
+#add_member
+{
+float: right;
+height: 30px;
+width: 120px;
+border-radius: 5px;
+background-color: white;
+}
+#send_btn
+{
+width: 50px;
+height: 40px;
+margin-top: 7px;
+margin-right: 10px;
+border-radius: 5px;
+background-color: white;
+}
+.chat_btn
+{
+background-color: white;
+color: black;
+}
+
+.dropbtn {
+background-color:white;
+color: black;
+padding: 16px;
+font-size: 16px;
+border: none;
+cursor: pointer;
+text-align: right;
+}
+
+.dropdown {
+float:right;
+align-items: flex-end;
+}
+
+.dropdown-content {
+display: none;
+position:absolute;
+background-color: #f9f9f9;
+min-width: 160px;
+/* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
+z-index: 1;
+}
+
+.dropdown-content a {
+color: black;
+padding: 12px 16px;
+text-decoration: none;
+display: block;
+float: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+display: block;
+float: left;
+}
+
+.dropdown:hover .dropbtn {
+background-color:rgb(230, 228, 228);
+color: white;
+}
+</style>
+<body>
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-blue w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64" style="text-align: center"><br><br><br><b id="hello">Name</b></h3>
+  </div>
+
+  
+  <div class="w3-bar-block">
+        <div id="profile">
+          <img id="profilepic" alt="photo">
+          </div>
+          <a href="profiletemp.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Intra College Events</a> 
+        <a href="intercollege.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Inter College Events</a> 
+        <a href="a.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Profile</a> 
+        <a href="notices.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Notices</a> 
+        <a href="noticesdir.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Directorate Notices</a> 
+        <a href="chat.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Chat</a> 
+        <a href="clgnetwork.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">College-Network</a> 
+        <!-- <a href="mynetwork.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">My-Network</a> -->
+        <a href="alumnisearch.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Search</a>
+             <a href="#" onclick="logout()" class="w3-bar-item w3-button w3-hover-white">Logout</a>
+      
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-blue w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-blue w3-margin-right" onclick="w3_open()">☰</a>
+  <span>Govt of Goa</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Header -->
+  <div class="w3-container" style="margin-top:60px" id="showcase">
+    
+    <h1 class="w3-xxxlarge w3-text-blue"><b>Chat</b></h1>
+    <hr style="width:50px;border:5px solid blue" class="w3-round">
+  </div>
+  
+  <div id="container">
+    <aside>
+        <ul>
+            <li>
+                <input type="button" onclick="create_group()" value="Create Group" id="create_grp" class="chat_btn" >
+            </li>
+
+            <ul id="list">
+                
+            </ul>
+        </ul>
+        
+    </aside>
+    <main >
+        <header>
+                <h2 id="head" style="margin-left: 50px; margin-top: 10px;"> </h2>
+                <div class="dropdown" style="margin-right:0px;">
+                    <button class="dropbtn">More:</button>
+                    <div class="dropdown-content">
+                    <a href="#" onclick="go_to_search('Add')">+Add Member</a>
+                    <a href="#" onclick="go_to_search('Remove')">-Remove Member</a>
+                    <a href="#" onclick="leave_group()">Leave Group</a>
+                    <a href="#" onclick="group_info()">Group Info</a>
+                    </div>
+                </div>
+        </header>
+        <ul id="chat">
+
+        </ul>
+        <footer>
+            <textarea id="type_msg" placeholder="Type your message"></textarea>
+            <input style="float: right;" type="button" id="send_btn" onclick="save('head')" value="Send"/>
+        </footer>
+    </main>
+</div>
+ 
+<div id="load"></div>
+<div id="contents">
+</div>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+  <script src="firebase.js"></script>
+<script src="logout.js"></script>
+<script src="loading.js"></script>
+<script>
+
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+document.getElementById('hello').innerHTML=window.localStorage.getItem('name');
+</script>
+<script>
+  var count=0;
+  var uid;
+  var cur_email;
+  firebase.auth().onAuthStateChanged(function(user) {
+				  if (user) {
+				    // User is signed in.
+				    cur_email = user.email;
+				     uid = user.uid;
+             console.log(uid);
+				  }
+       });
+    // display group
+    function display_groups()
+    {
+    document.getElementById("list").innerHTML="";
+    var grp_list=document.getElementById("list");
+    firebase.database().ref("Users/Alumni/").once("value", function(snapshot){
+		snapshot.forEach(function(child){
+            child.forEach(function(mychild)
+            {
+                x=mychild.val();
+                if(mychild.key==uid)
+                {
+                    mychild.child("Groups").forEach(function(childGroup)
+                    {
+                        var group=childGroup.val();
+                        document.getElementById("list").innerHTML+="<li><input type='button' class='grp_list' value="+group+" id='"+group+"' onclick='open_chat(this.id)'/></li>";
+                    });
+                }
+            });	
+        });
+    });
+    }
+
+  //write messege
+  function save(id)
+  {
+
+        var name1;
+        var open_grp=document.getElementById(id).innerHTML;
+        console.log("grp "+open_grp);
+        firebase.database().ref("Users/Alumni/").once("value", function(snapshot){
+		    snapshot.forEach(function(child){
+            child.forEach(function(mychild)
+            {
+                x=mychild.val();
+                if(mychild.key==uid)
+            {
+                name1=x.name;
+                var d=new Date();  
+                var hrs=d.getHours();
+                var min=d.getMinutes();
+                var time=hrs+":"+min+" | "+d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear();
+                var msg=document.getElementById('type_msg').value;
+                if(msg!="" && open_grp!=" ")
+                {
+                    firebase.database().ref('message/'+open_grp+'/chat').push().set({
+                         uid,msg,time,name1
+                });
+                }
+                 if(msg=="")
+                {
+                  window.alert("Please Enter Messege");
+                }
+                if(open_grp==" ")
+                {
+                  window.alert("Please Select Group");
+                }
+                //open_chat(open_grp);
+                document.getElementById("type_msg").value="";
+            }
+            });	
+        });
+    });
+  }
+    //Dialog Box
+    var group;
+    //display chat
+    function open_chat(id)
+    {
+        display_groups();
+        var chat_section=document.getElementById("chat_section");
+      //  chat_section.style.display="block";
+       document.getElementById("chat").innerHTML="";
+       document.getElementById("head").innerHTML="";
+      var space="&nbsp ";
+        group=id;
+        document.getElementById("head").innerHTML+=group;
+        var ref=firebase.database().ref('message/'+group+'/chat');
+        ref.on('value',function (snapshot){
+        snapshot.forEach(function(childSnapshot){
+          var childKey=childSnapshot.val();
+          var msg1=childKey.msg;
+          var user1=childKey.uid;
+          var time1=childKey.time;
+          var name=childKey.name1;
+          var list=document.getElementById("chat");
+          if(user1==uid)
+          {
+            var block='<li class="me">'+
+                        '<div class="entete">'+
+                            '<span class="status green"></span>'+
+                            '<h3>'+time1+space+'</h3>'+
+                            '<h2>'+name+'</h2>'+
+                        '</div>'+
+                        '<div class="triangle"></div>'+
+                        '<div class="message">'+
+                           msg1+ 
+                        '</div>'+
+                    '</li>';   
+          }
+          else
+          {
+            var block='<li class="you">'+
+                        '<div class="entete">'+
+                            '<span class="status green"></span>'+
+                            '<h2>'+name+'</h2>'+
+                             '<h3>'+time1+'</h3>'+
+                        '</div>'+
+                        '<div class="triangle"></div>'+
+                        '<div class="message">'+
+                           msg1+ 
+                        '</div>'+
+                    '</li>';   
+          }
+          
+            list.innerHTML+=block;
+        })
+   });
+    }
+
+    function create_group()
+    {
+
+		var group_name=window.prompt("Enter group Name:"); 
+    	if(!group_name)
+    	{
+    		return true;
+    	}
+       	else
+       	{
+
+         //  alert(group_name);
+  
+      var flag=2;   
+        firebase.database().ref("message/").once("value",function(snapshot){
+            snapshot.forEach(function(mychild){
+                var x=mychild.key;
+                
+               // alert("value of flag in for loop :"+flag);
+                if(x==group_name)
+                  {
+                      flag=1;
+                      alert("PLease enter other group name ");
+                      return true;
+                  }
+                  
+            });
+            if(flag!=1)
+            {
+                firebase.database().ref("message/"+group_name).push().set("Group was created ");
+                window.localStorage.setItem(("group_name"),group_name);
+                window.localStorage.setItem("task","Add");
+                alert("Please Choose your group members");
+                window.location.href="add_remove.html";
+            }
+
+        });
+        }
+    }
+
+    function go_to_search(task)
+    {
+        var group=document.getElementById("head").innerHTML;
+        if(group==" ")
+             window.alert("Please Select Group");
+        else
+        {
+        window.localStorage.setItem("task",task);
+        window.localStorage.setItem(("group_name"),group);
+        window.location.href="add_remove.html";
+        }
+    }
+
+    //leave grp
+    function leave_group()
+    {
+    var group=document.getElementById("head").innerHTML;
+    var member=cur_email;
+    member=member.replace('@','');
+    member=member.replace('.','');
+    if(group!=" ")
+    {
+      //remove member from grp
+    firebase.database().ref('message/'+group+'/members').child(member).remove();
+    //remove grp from member
+    firebase.database().ref("Users/Alumni/").once("value", function(snapshot){
+		snapshot.forEach(function(child){
+            child.forEach(function(mychild)
+            {
+                x=mychild.val();
+                check_email=x.email;
+                if(check_email==cur_email)
+                {
+                    mychild.child("Groups").forEach(function(childGroup)
+                    {
+                        var group1=childGroup.val();
+                        if(group==group1)
+                        firebase.database().ref("Users/Alumni/"+child.key+'/'+mychild.key+"/Groups").child(group1).remove();
+                    });
+                }
+            });	
+        });
+    });
+    setTimeout(function(){
+      open_chat(" ");
+    }, 1000); 
+    }
+    else
+      window.alert("Please Select Group");
+    
+    }
+    //group info
+    function group_info()
+    {
+        var group=document.getElementById("head").innerHTML;
+        if(group==" ")
+        {
+          window.alert("Please Select Group");
+        }
+        else
+        {
+        window.localStorage.setItem("group_name",group);
+        window.location.href="group_info.html";
+        }
+
+    }
+
+    firebase.database().ref('message/').on('value', function() {
+    {
+    open_chat(document.getElementById("head").innerHTML);
+    }
+});
+
+document.getElementById('profilepic').setAttribute('src',window.localStorage.getItem('imgurl'));
+document.getElementById('hello').innerHTML=window.localStorage.getItem('name');
+</script>
+  
+
+</body>
+</html>

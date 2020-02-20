@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>DIRECTORATE DASHBOARD</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<link rel="stylesheet" href="loading.css">
+<link href="style.css" rel="stylesheet"> 
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 5; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(1,1,1,0.7); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 50%; /* Could be more or less, depending on screen size */
+}
+	
+.yearbox{
+		/* width:fit-content; */
+		border: 0.5px solid black;
+		/* padding: 5px; */
+    background-color: #4CAF50;
+          color: white;
+          padding: 5px 8px 5px 8px;
+          
+          /* margin: 8px 8px 8px 8px; */
+          /* border: none; */
+          cursor: pointer;
+          width: 100%;
+		
+	}
+	.card {
+   background-color: white;
+   padding: 20px;
+   margin-top: 20px;
+   margin-left: 20px;
+   align-content:flex-start;
+}
+	
+	#table1{
+		border-spacing:7px;
+		border-collapse:separate;
+	}
+	
+	#table2{
+		border-spacing:7px;
+		border-collapse:separate;
+	}
+	
+	#table3{
+		border-spacing:7px;
+		border-collapse:separate;
+	}
+	
+	#table4{
+		border-spacing:7px;
+		border-collapse:separate;
+  }
+
+#profile img
+        {
+            position: fixed;
+            top: 70px;
+            left: 70px;
+            float: left;
+            right: 0.5em;
+            border: 2px solid rgb(15, 15, 15);
+            width:140px;   
+            height: 180;
+            border-radius: 90px; 
+            margin-left:10px;
+        }
+ .slideshow-container {
+  position: relative;
+  margin: auto;
+  width: 80%;
+  margin-top:0px;
+}
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+
+       
+
+</style>
+<body>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+       https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+  
+  <script src="firebase.js">
+    // Your web app's Firebase configuration
+    
+  </script>
+ 
+  <script src="loading.js"></script>
+  <script src="logout.js"></script>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-green w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64" style="text-align: center"><br><br><br><b>DIRECTORATE</b></h3>
+  </div>
+
+  
+  <div class="w3-bar-block">
+        <div id="profile">
+                <img src="profile.png" alt="photo">
+          </div>
+    <a href="dirdash.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Dashboard</a> 
+    <a href="clgrequest.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">College Requests</a> 
+   
+    <a href="dirnotices.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Notices</a> 
+    <a href="direvents.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Events</a> 
+    <a href="dirsearch.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Search</a> 
+         <a href="#" onclick="logout()" class="w3-bar-item w3-button w3-hover-white">Logout</a>
+  
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-green w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-green w3-margin-right" onclick="w3_open()">☰</a>
+  <span>Govt of Goa</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Header -->
+  <div class="w3-container" style="margin-top:80px" id="showcase">
+        <h1 class="w3-xxxlarge w3-text-green"><b>Dashboard</b></h1>
+    <hr style="width:50px;border:5px solid green" class="w3-round">
+  </div>
+
+ 
+  
+  <div id="load"></div>
+  <div id="contents">
+  </div>
+ 
+  <section id="mu-counter">
+    <div class="mu-counter-overlay">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="mu-counter-area">
+             <center>
+              <ul class="mu-counter-nav">
+              <li class="col-md-3 col-sm-3 col-xs-12">
+                <div class="mu-single-counter" style="padding-right: 40px;">
+                  <span>Colleges</span>
+                  <h3><span class="counter" id="colno"></span></h3>
+                </div>
+              </li>
+              <li class="col-md-3 col-sm-3 col-xs-12">
+                <div class="mu-single-counter" style="padding-left: 40px;">
+                  <span>Alumni</span>
+                  <h3><span class="counter" id="alno"></span></h3>
+                </div>
+              </li>
+            </center>
+            </ul>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <table style="width: 100%;">
+    <tr>
+      <td>
+        <div id="displayclg" style="text-align:left; font-size:xx-large;">COLLEGE</div>
+    
+        </td>
+      <td>
+        <div id="displayyear" style="text-align:left; font-size:xx-large;">BATCH YEAR</div>
+    
+      </td>
+      <td>
+        <div id="displaybranch" style="text-align:left; font-size:xx-large;">BRANCH</div>
+      </td>
+      <td>
+        <div id="displayname"  style="text-align:center; font-size:xx-large;">NAME</div>
+    
+      </td>
+      </tr>
+    <tr>
+      <td style="width: 50%; vertical-align: initial;">
+        <div class="card">
+          <table id="table4">
+          </table>
+        </div>	
+      </td>
+      <td style="width: 10%; vertical-align: initial;">
+        <div class="card">
+        <table id="table1">
+        </table>
+      </div>
+      </td>
+      <td style="width: 20%; vertical-align: initial;">
+        
+        <div>
+        <table id="table2">
+        </table>
+        </div>
+      </td>
+      <td style="width: 30%; vertical-align: initial;">
+        
+        <div>
+        <table id="table3">
+        </table>
+        </div>
+      </td>
+  
+    </tr>
+  </table>
+    <div id="id01" class="modal">
+    
+    <form class="modal-content animate" >
+      <div class="imgcontainer">
+        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+        
+      </div>
+      <h1 style="text-align: center;color:teal;" >PROFILE</h1>
+      <div class="container">
+          
+        <b>Name :</b><label id="name"></label>
+        <br>
+        <b>College :</b><label id="clg"></label>
+        <br>
+        <b>DOB</b><label id="dob"></label>
+        <br>
+        <b>Email id :</b><label id="email"></label>
+        <br>
+        <b>Phone-No :</b><label id="phone"></label>
+        <br>
+        <b>Graduation year: </b> <label id="passyear"></label>
+        <br>
+       <b>Degree :<b> <label id="degree"></label>
+        <br>
+       <b>Experience :<b> <label id="exper"></label>
+        <br>
+        <br>
+      </div>
+  </form>
+  </div>
+    
+  
+</div>  
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+</script>
+
+<script>
+
+
+    //count
+    function calculate_alumni()
+  {
+    var count=0;
+    firebase.database().ref("Users/Alumni/").once("value", function(snapshot){
+		snapshot.forEach(function(child){
+            child.forEach(function(mychild)
+            {
+                    count+=1;
+            });	
+        });
+        console.log(count);
+        document.getElementById("alno").innerHTML=count;
+    });
+    calculate_college();
+  }
+  function calculate_college()
+  {
+    var count=0;
+    firebase.database().ref("Users/College/").once("value", function(snapshot){
+		snapshot.forEach(function(child){
+            
+                    count+=1;
+                    console.log(count);
+        });
+        console.log(count);
+        document.getElementById("colno").innerHTML=count;
+    });
+  }
+    calculate_alumni();
+    </script>
+   
+
+
+<script>
+
+	firebase.database().ref("Users/College/").once("value", function(snapshot){
+		document.getElementById('table4').innerHTML="";
+		snapshot.forEach(function(child){
+			document.getElementById('table4').innerHTML+="<tr><td><label id='"+child.key+"' class='yearbox' onclick=showcollege(this.id)>"+child.val().name+"</label></td></tr><br>";
+		});
+	});
+	
+	function showcollege(uid){
+		window.localStorage.setItem("tempcollegeuid", uid);		
+		firebase.database().ref("Users/Alumni/").child(uid).orderByChild("passyear").once("value", function(snapshot){
+		var x=1949;
+		document.getElementById('table1').innerHTML="";
+		document.getElementById('table2').innerHTML="";
+		document.getElementById('table3').innerHTML="";
+		snapshot.forEach(function(child){
+			if(x!=child.val().passyear){
+				x=child.val().passyear;
+				document.getElementById('table1').innerHTML+="<tr><td><label id='"+x+"' class='yearbox' onclick=showyear(this.id)>"+x+"</label></td></tr><br>";
+			}
+		});
+	});
+	}
+	
+	function showyear(year){
+		console.log(year);
+		var uid=window.localStorage.getItem("tempcollegeuid");
+		//document.getElementById('displayyear').innerHTML=year;
+		document.getElementById('table2').innerHTML="";
+		document.getElementById('table3').innerHTML="";
+		firebase.database().ref("Users/Alumni/").child(uid).orderByChild("passyear").equalTo(year)
+			.once("value", function(snapshot){
+				var x="";
+				document.getElementById('table2').innerHTML="";
+				snapshot.forEach(function(child){
+					if(x!=child.val().degree){
+						x=child.val().degree;
+						document.getElementById('table2').innerHTML+="<tr><label id='"+x+"' class='yearbox'onclick=showdegree('"+year+"',this.id)>"+x+"</label></tr><br><br>";
+					}
+				});	
+			});
+	}
+	
+	function showdegree(year, degree){
+		var uid=window.localStorage.getItem("tempcollegeuid");
+		firebase.database().ref("Users/Alumni/").child(uid).orderByChild("passyear").equalTo(year)
+			.once("value", function(snapshot){
+				document.getElementById('table3').innerHTML="";
+				//document.getElementById('displaydegree').innerHTML=degree;
+				snapshot.forEach(function(child){
+					if(child.val().degree==degree){
+						document.getElementById('table3').innerHTML+="<tr><label id='"+child.key+"' class='yearbox'onclick=showprofile(this.id)>"+child.val().name+"</label></tr><br><br>";
+					}
+				});
+			});
+	}
+	
+	function showprofile(alumniuid){
+		console.log(alumniuid);
+		var uid=window.localStorage.getItem("tempcollegeuid");
+		document.getElementById('id01').style.display='block';
+		var dbref = firebase.database().ref('Users/Alumni/').child(uid).child(alumniuid);
+		var dbref1 = dbref.child('Experience/');
+		dbref.once('value',function(snapshot){
+    document.getElementById('name').innerHTML=snapshot.val().name;
+    document.getElementById('clg').innerHTML=snapshot.val().college;
+    document.getElementById('phone').innerHTML=snapshot.val().phone;
+    document.getElementById('email').innerHTML=snapshot.val().email;
+    document.getElementById('passyear').innerHTML=snapshot.val().passyear;
+    document.getElementById('degree').innerHTML=snapshot.val().degree;
+    document.getElementById('dob').innerHTML=snapshot.val().dob;
+    dbref1.once('value',function(child2)
+    {
+      child2.forEach(function(child1){
+        document.getElementById('exper').innerHTML= "Company:" +child1.val().company+"<br>"
+      +"Designation:" +child1.val().designation+"<br>"
+      +"Start Date:" +child1.val().startdate+"<br>";
+      if(child1.val().enddate!=null)
+      {
+        document.getElementById('exper').innerHTML+"End date: "+child1.val().enddate+"<br>";
+      } 
+      });
+
+      
+    });
+
+});
+	}
+	var modal = document.getElementById('id01');
+  
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+  }
+</script>
+
+</body>
+</html>

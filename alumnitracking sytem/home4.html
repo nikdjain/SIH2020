@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  
+
+ 
+  <!-- Main style sheet -->
+  <link href="style.css" rel="stylesheet">    
+
+ 
+  <!-- Google Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Tangerine' rel='stylesheet' type='text/css'>        
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Prata' rel='stylesheet' type='text/css'>
+  <title>Alumni Tracking System</title>
+  <link  rel="icon" type="image/png" href="https://www.seekpng.com/png/full/188-1882776_form-icon-form-icon-png.png"/>
+  <link rel="stylesheet" href="loading.css">
+ 
+ 
+    <style>
+        * {box-sizing: border-box;}
+        body {font-family: Verdana, sans-serif; margin:0}
+        .mySlides {display: none}
+        img {vertical-align: middle;}
+        
+
+        .scrollToTop {
+          background-color: #c1a35f;
+          border: 2px solid #c1a35f;
+        }
+        /*scrol to top*/
+        #mu-footer .mu-footer-area .mu-footer-social a {
+  background-color: #555;
+  color: #fff;
+  display: inline-block;
+  font-size: 20px;
+  height: max-content;
+  line-height: 32px;
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
+  width: max-content;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+.scrollToTop {
+  bottom: 60px;
+  color: #fff;
+  display: none;
+  font-size: 17px;
+  line-height: 22px;
+  font-family: "Open Sans", sans-serif;
+  padding: 5px 0;
+  position: fixed;
+  right: 20px;
+  text-align: center;
+  text-decoration: none;
+  width: 55px;
+  z-index: 999;
+  -webkit-transition: all 0.5s ease 0s;
+  -moz-transition: all 0.5s ease 0s;
+  -ms-transition: all 0.5s ease 0s;
+  -o-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+}
+.scrollToTop i {
+  display: block;
+}
+.scrollToTop span {
+  display: block;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.scrollToTop:hover,
+.scrollToTop:focus {
+  color: #fff;
+}
+        /* Slideshow container */
+        .slideshow-container {
+          position: relative;
+          margin: auto;
+          width: 100%;
+          margin-top:0px;
+        }
+        
+        /* Next & previous buttons */
+        .prev, .next {
+          cursor: pointer;
+          position: absolute;
+          top: 50%;
+          width: auto;
+          padding: 16px;
+          margin-top: -22px;
+          color: white;
+          font-weight: bold;
+          font-size: 18px;
+          transition: 0.6s ease;
+          border-radius: 0 3px 3px 0;
+          user-select: none;
+        }
+        
+        /* Position the "next button" to the right */
+        .next {
+          right: 0;
+          border-radius: 3px 0 0 3px;
+        }
+        
+        /* On hover, add a black background color with a little bit see-through */
+        .prev:hover, .next:hover {
+          background-color: rgba(0,0,0,0.8);
+        }
+        
+        /* Caption text */
+        .text {
+          color: #f2f2f2;
+          font-size: 15px;
+          padding: 8px 12px;
+          position: absolute;
+          bottom: 8px;
+          width: 100%;
+          text-align: center;
+        }
+        
+        /* Number text (1/3 etc) */
+        .numbertext {
+          color: #f2f2f2;
+          font-size: 12px;
+          padding: 8px 12px;
+          position: absolute;
+          top: 0;
+        }
+        
+        /* The dots/bullets/indicators */
+        .dot {
+          cursor: pointer;
+          height: 15px;
+          width: 15px;
+          margin: 0 2px;
+          background-color: #bbb;
+          border-radius: 50%;
+          display: inline-block;
+          transition: background-color 0.6s ease;
+        }
+        
+        .active, .dot:hover {
+          background-color: #717171;
+        }
+        
+        /* Fading animation */
+        .fade {
+          -webkit-animation-name: fade;
+          -webkit-animation-duration: 1.5s;
+          animation-name: fade;
+          animation-duration: 1.5s;
+        }
+        
+        @-webkit-keyframes fade {
+          from {opacity: .4} 
+          to {opacity: 1}
+        }
+        
+        @keyframes fade {
+          from {opacity: .4} 
+          to {opacity: 1}
+        }
+        
+        /* On smaller screens, decrease text size */
+        @media only screen and (max-width: 300px) {
+          .prev, .next,.text {font-size: 11px}
+        }
+        
+        .dropbtn {
+          background-color: #4CAF50;
+          color: white;
+          padding: 16px;
+          font-size: 16px;
+          border: none;
+          cursor: pointer;
+        }
+        
+        .dropbtn:hover, .dropbtn:focus {
+          background-color: #3e8e41;
+        }
+        
+        .dropdown {
+          position: relative;
+          float: right;
+          display: inline-block;
+        }
+        
+        .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #f9f9f9;
+          min-width: 90px;
+          overflow: auto;
+          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        }
+        
+        
+        .dropdown-content :hover {background-color:yellowgreen;}
+        
+        .show {display:block;}
+        
+        /* Full-width input fields */
+        input[type=text], input[type=password], input[type=email] {
+          width: fit-content;
+          font-size: large;
+          max-width: 300px;
+          padding: 12px 20px;
+          margin: 8px 0;
+          display: inline-block;
+          border: 1px solid #ccc;
+          box-sizing: border-box;
+        }
+        
+        /* Set a style for all buttons */
+        button {
+          background-color: #4CAF50;
+          color: white;
+          padding: 14px 20px;
+          margin: 8px 0;
+          border: none;
+          cursor: pointer;
+          width: 100%;
+        }
+        .vbutton{
+            background-color:blueviolet;
+            width:20%;
+            margin-left: 20px;
+        
+        }
+        .rbutton{
+            background-color:teal;
+            width:95%;
+            margin-left: 20px;
+            margin-top: 10px;
+            margin-right: 20px;
+        
+        }
+        
+        
+        button:hover {
+          opacity: 0.8;
+        }
+        
+        /* Extra styles for the cancel button */
+        .cancelbtn {
+          width: auto;
+          padding: 10px 18px;
+          background-color: #f44336;
+        }
+        
+        /* Center the image and position the close button */
+        .imgcontainer {
+          text-align: center;
+          
+          position: relative;
+        }
+        
+        
+        
+        .container {
+          padding: 16px;
+        }
+        .container1 {
+          padding-left: 20px;
+          padding-bottom: 20px;
+          padding-right: 20px;
+        }
+        
+        span.psw {
+          float: right;
+          padding-top: 16px;
+        }
+        
+        /* The Modal (background) */
+        .modal {
+          display: none; /* Hidden by default */
+          position: fixed; /* Stay in place */
+          z-index: 5; /* Sit on top */
+          left: 0;
+          top: 0;
+          width: 100%; /* Full width */
+          height: 100%; /* Full height */
+          overflow: auto; /* Enable scroll if needed */
+          background-color: rgb(0,0,0); /* Fallback color */
+          background-color: rgba(1,1,1,0.7); /* Black w/ opacity */
+          padding-top: 60px;
+        }
+        
+        /* Modal Content/Box */
+        .modal-content {
+          background-color: #fefefe;
+          margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+          border: 1px solid #888;
+          width: 50%; /* Could be more or less, depending on screen size */
+        }
+        
+        /* The Close Button (x) */
+        .close {
+          position: absolute;
+          right: 25px;
+          top: 0;
+          color: #000;
+          font-size: 35px;
+          font-weight: bold;
+        }
+        
+        .close:hover,
+        .close:focus {
+          color: red;
+          cursor: pointer;
+        }
+        
+        /* Add Zoom Animation */
+        .animate {
+          -webkit-animation: animatezoom 0.6s;
+          animation: animatezoom 0.6s
+        }
+        
+        @-webkit-keyframes animatezoom {
+          from {-webkit-transform: scale(0)} 
+          to {-webkit-transform: scale(1)}
+        }
+          
+        @keyframes animatezoom {
+          from {transform: scale(0)} 
+          to {transform: scale(1)}
+        }
+        
+        /* Change styles for span and cancel button on extra small screens */
+        @media screen and (max-width: 300px) {
+          span.psw {
+             display: block;
+             float: none;
+          }
+          .cancelbtn {
+             width: 100%;
+          }
+        }
+        select{
+                width:fit-content;
+                min-width:100px;
+                max-width:150px;
+            }
+        </style>
+
+
+
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+
+<script src="firebase.js">
+  // Your web app's Firebase configuration
+  
+</script>
+<script src="login.js"></script>
+<script src="forgot_Pass.js"></script>
+<script src="loading.js"></script>
+
+</head>
+<body>
+
+     <!--START SCROLL TOP BUTTON -->
+     <a class="scrollToTop" href="#">
+      <i class="fa fa-angle-up"></i>
+      <span>Top</span>
+    </a>
+
+
+<div style="grid-row-gap: 5px;" class="dropdown" float="right">
+    <div class="dropdown" >
+      <button id="myBtn" style="margin-left: 5px;margin-right: 10px;" class="dropbtn">Register</button>
+      <div id="myDropdown" class="dropdown-content">
+        <h5 onclick="document.getElementById('id02').style.display='block'" style="width:auto;">ALUMNI</h5>
+        <h5 onclick="document.getElementById('id03').style.display='block'" style="width:auto;">COLLEGE ADMIN</h5>
+      </div>
+  </div>
+    
+	
+	
+<button class="dropbtn" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+</div>
+
+
+
+
+  <table style="width: 66%;background-color:">
+    <tr >
+    <td style="width: 50%;"> 
+<img src="govt.jpg" align="left" height="150">
+</td>
+<td style="width: 50%" >
+<div>
+<h1 style="text-align: center; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;">Alumni Tracking System</h1>
+</div>
+<hr>
+</td>
+</tr>
+</table>
+<br>
+<table>
+<tr>
+  <div class="slideshow-container">
+
+<div class="mySlides fade">
+  <div class="numbertext">1 / 3</div>
+  <img src="download.jpg" style="width:100%; max-height: 500px; align-self: center;">
+  <div class="text">Caption Text</div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">2 / 3</div>
+  <img src="download (1).jpg" style="width:100%; max-height: 500px;align-self: center;">
+  <div class="text">Caption Two</div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">3 / 3</div>
+  <img src="download (2).jpg" style="width:100%; max-height: 500px;align-self: center;">
+  <div class="text">Caption Three</div>
+</div>
+
+<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+<a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+</div>
+
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span> 
+  <span class="dot" onclick="currentSlide(2)"></span> 
+  <span class="dot" onclick="currentSlide(3)"></span> 
+</div>
+
+
+</tr>
+</table>
+
+
+<div id="id01" class="modal">
+  
+  <form class="modal-content animate">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+      
+    </div>
+
+    <div class="container">
+      <label for="uname"><b>Username</b></label>
+      <input type="email" placeholder="Enter Username" id="email" name="uname" required>
+       <br>
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" id="pass" name="psw" required>
+      <label id="myid"></label>
+       <button type="button" onclick="login()">Login</button>
+
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+     
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+      <span class="psw" onclick="forgot_password()"><a href="#">Forgot password?</a></span>
+    </div>
+  </form> 
+</div>
+
+<!-- alumni Register modal -->
+<div id="id02" class="modal">
+    
+    <form class="modal-content animate" >
+      <div class="imgcontainer">
+        <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+        
+      </div>
+      <h1 style="text-align: center;color:teal; padding-top: 20px;" >ALUMNI REGISTRATION FORM</h1>
+      <div class="container1">
+      <table>
+        <tr>
+        <td><label style="font-size: large;">Name:</label></td>
+        <td><input type="text" name="name" id="name" style="font-size: large;" placeholder="Enter Name" required=""></td>
+        </tr>
+        <tr>
+        <td><label style="font-size: large;">Email:</label></td>
+        <td><input type="email" id="email1" style="font-size:larger;" placeholder="Enter Email-ID" required=""></td>
+        </tr>
+        
+        <tr>
+        <td><label style="font-size: large;">Phone:</label></td>
+        <td><input type="text" name="phone" id="phone" style="font-size: large;" placeholder="Enter Mobile/Phone" required=""></td>
+        </tr>	
+        
+        <tr>
+        <td><label style="font-size: large;">College:</label></td>
+        <td><select name="college" id="college" style="font-size: large;" onchange="writedegree(value)" required="">
+        <option value="None">None</option>
+        </select></td>
+        </tr>
+        <tr>
+          <td><label style="font-size: large;">Current Status:</label></td>
+          <td>
+
+          <input type="checkbox" id="Student" value="Student">Student
+          <input type="checkbox" id="Professor">Professor
+          <input type="checkbox" id="Entreprenuer">Entreprenuer
+          <input type="checkbox" id="Investor">Investor
+          <input type="checkbox" id="Job">Job
+          <input type="checkbox" id="Mentor">Mentor
+         
+    </td>
+        </tr>
+        <tr>
+        <td><label style="font-size: large;">Passing Year:</label></td>
+        <td><select name="passyear" style="font-size: large;" id="passyear">
+        </select></td>
+        <!-- <input type="number" name="passyear" placeholder="Enter Passing Year" min="10" max="100"> -->
+        </tr>
+        
+        <tr>
+        <td><label style="font-size: large;">Date of Birth:</label></td>
+        <td><input type="date" name="dateofbirth" id="dateofbirth" style="font-size: large;"></td>
+        </tr>
+        
+        <tr>
+        <td><label style="font-size: large;">Degree: </label></td>
+        <td><select name="degree" id="degree" style="font-size: large;">
+        </select></td>
+        </tr>
+          
+          </table> 
+          <button type="button" class="vbutton" onclick="resetform()">Reset Form</button><br>
+        <button type="submit" class="rbutton" onclick="return validateandstore()">Register</button>
+        
+      </div>
+    </form>
+  </div>
+
+  <!-- CLG-ADMIN Register modal -->
+  <div id="id03" class="modal">
+    
+    <form class="modal-content animate" >
+      <div class="imgcontainer">
+        <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
+        
+      </div>
+      <h1 style="text-align: center;color:teal; padding-top: 20px;" >COLLEGE REGISTRATION FORM</h1>
+      <div class="container1">
+      <table>
+        <tr>
+        <td><label style="font-size: large;">College Name:</label></td>
+        <td><input type="text" id="namecollege" style="font-size: large;" placeholder="Enter College Name" required=""></td>
+        </tr>
+        <tr>
+          <td><label style="font-size: large;">College Code:</label></td>
+          <td><input type="text" id="collegecode" style="font-size: large;" placeholder="Enter College Code" required=""></td>
+          </tr>
+        <tr>
+        <td><label style="font-size: large;">Email:</label></td>
+        <td><input type="email" id="emailcollege" style="font-size:larger;" placeholder="Enter Email-ID" required=""></td>
+        </tr>
+        
+        <tr>
+        <td><label style="font-size: large;">Phone:</label></td>
+        <td><input type="text" id="phonecollege" style="font-size: large;" placeholder="Enter Mobile/Phone" required=""></td>
+        </tr>	
+        <tr>
+          <td><label style="font-size: large;">Address:</label></td>
+          <td><input type="text" id="address" style="font-size: large;" placeholder="Enter Address" required="" ></td>
+          </tr>
+        
+          <tr>
+          <td><label style="font-size: large;">First Batch<br>Passing Year:</label></td>
+          <td><select name="passyearcollege" id="passyearcollege" style="font-size: large;" required="" >
+          </select></td>
+          <!-- <input type="number" name="passyear" placeholder="Enter Passing Year" min="10" max="100"> -->
+          </tr>		
+          <tr>
+          <td><label style="font-size: large;">Degree: (multiple)</label></td>
+          <td><select name="degreecollege" id="degreecollege" style="font-size: large;" min width="50px" multiple required="" >		
+          </select></td>
+          </tr>
+          </table> 
+          <button type="submit" class="vbutton" onclick="resetform1()">Reset Form</button><br>
+        <button type="submit" class="rbutton" onclick="register()">Register</button>
+        
+      </div>
+    </form>
+  </div>
+
+  <div id="load"></div>
+  <div id="contents">
+  </div>
+<script>
+
+// Get the modal
+var modal = document.getElementById('id02');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+// Get the button, and when the user clicks on it, execute myFunction
+document.getElementById("myBtn").onclick = function() {myFunction()};
+
+/* myFunction toggles between adding and removing the show class, which is used to hide and show the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+</script>
+<script>
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+}
+</script>
+
+<script>
+    //alumniform database
+    
+      function writedegree($selection){
+        document.getElementById('degree').options.length = 0;
+        document.getElementById('passyear').options.length = 0;
+        var data=firebase.database().ref("Users/College/");
+        data.once("value", function(snapshot){
+        snapshot.forEach(function(child){
+          var id=child.val();
+          //console.log(id.name);
+          if($selection==id.name){
+            var firstpassingyear=id.firstbatch;
+            var newSelect=document.createElement('option');
+            var selecthtml="<option value='"+"None"+"'>"+"None"+"</option>";
+            newSelect.innerHTML=selecthtml;
+            document.getElementById('passyear').add(newSelect);
+            var thisyear=new Date();
+            var myyear=thisyear.getFullYear();
+            for(var i=firstpassingyear; i<=myyear+5; i++){
+              var newSelect=document.createElement('option');
+              var selecthtml="<option value='"+i+"'>"+i+"</option>";
+              newSelect.innerHTML=selecthtml;
+              document.getElementById('passyear').add(newSelect);
+            }			
+            
+            var newSelect=document.createElement('option');
+            var selecthtml="<option value='"+"None"+"'>"+"None"+"</option>";
+            newSelect.innerHTML=selecthtml;
+            document.getElementById('degree').add(newSelect);
+            data.child(child.key).child("degree")
+            .once("value", function(mychild){
+              mychild.forEach(function(mydegree){
+                var newSelect=document.createElement('option');
+                var selecthtml="<option value='"+mydegree.val()+"'>"+mydegree.val()+"</option>";
+                newSelect.innerHTML=selecthtml;
+                document.getElementById('degree').add(newSelect);
+              });
+            });
+          }		
+        
+        });
+      });
+      }
+      
+      var data=firebase.database().ref("Users/College/");
+      data.once("value", function(snapshot){
+        snapshot.forEach(function(child){
+          var id=child.val();
+          //console.log(id.name);
+          var newSelect=document.createElement('option');
+          var selecthtml="<option value='"+id.name+"'>"+id.name+"</option>";
+          newSelect.innerHTML=selecthtml;
+          document.getElementById('college').add(newSelect);
+          
+        
+        });
+      });
+      
+      
+      function validateandstore(){
+        window.alert("inside 1");
+          var elements=[];
+          var stud = document.getElementById('Student').checked;
+          if(stud)
+          {
+            elements.push('Student');
+          }
+        
+          var job = document.getElementById('Job').checked;
+          if(job)
+          {
+           elements.push('Job');
+          }
+
+          var entr = document.getElementById('Entreprenuer').checked;
+          if(entr)
+          {
+            elements.push('Entreprenuer');
+          }
+
+           stud = document.getElementById('Investor').checked;
+          if(stud)
+          {
+            elements.push('Investor');
+          }
+
+          stud = document.getElementById('Mentor').checked;
+          if(stud)
+          {
+            elements.push('Mentor');
+          }
+        var myname=document.getElementById('name').value;
+        if(myname=="" || myname==null){
+          alert("Fill out the name field");
+          return false;
+        }
+        var myemail=document.getElementById('email1').value;
+        if(myemail=="" || myemail==null){
+          alert("Fill out the email field");
+          return false;
+        }
+        if(myemail.length<4){
+          alert("Enter a valid email");
+          return false;
+        }
+        var myphone=document.getElementById('phone').value;
+        if(myphone=="" || myphone==null){
+          alert("Fill out the phone field");
+          return false;
+        }
+        var mycollege=document.getElementById('college').value;
+        if(mycollege=="None"){
+          alert("Fill out the college field");
+          return false;
+        }
+        var mypassyear=document.getElementById('passyear').value;
+        if(mypassyear=="None"){
+          alert("Fille out the passing year field]");
+          return false;
+        }
+        var date=document.getElementById('dateofbirth').value;
+        if(date==null || date==""){
+          alert("Fill out the date field");
+          return false;
+        }
+      
+        var mydegree=document.getElementById('degree').value;
+        if(mydegree=="None"){
+          alert("Fill out the degree field");
+          return false;
+        }
+        
+          firebase.database().ref("Users/College/").once("value", function(snapshot){
+            snapshot.forEach(function(child){
+              var key=child.key;
+              var id=child.val();
+              if(id.name==mycollege){
+               // var uid=firebase.auth().currentUser.uid;
+                firebase.database().ref("Requests/Alumni/"+key).push().set({
+                  name:myname,
+                  email:myemail,
+                  phone:myphone,
+                  college:mycollege,
+                  passyear:mypassyear,
+                  dob:date,
+                  degree:mydegree	,
+                  status:elements
+                });
+                console.log("inside");
+              }
+            });
+          });
+          alert("You have been successfully registered. Wait for verification at your registered email address");
+          resetform();
+        return true;
+      }
+      
+      function resetform(){
+        document.getElementById('name').value = "";
+        document.getElementById('email1').value = "";
+        document.getElementById('phone').value = "";
+        document.getElementById('college').value = "";
+        document.getElementById('passyear').value = "";
+        document.getElementById('dateofbirth').value = "";
+        document.getElementById('degree').value = "";
+      }
+     //college form databse
+  
+     var thisyear=new Date();
+      var myyear=thisyear.getFullYear();
+      for(var i=1950; i<myyear+5; i++){
+          var newSelect=document.createElement('option');
+          var selecthtml="<option value='"+i+"'>"+i+"</option>";
+          newSelect.innerHTML=selecthtml;
+          document.getElementById('passyearcollege').add(newSelect);
+      }
+      
+      var data=firebase.database().ref("Degree/");
+      data.once("value", function(snapshot){
+          snapshot.forEach(function(child){
+              var newelement=document.createElement('option');
+              var myelement="<input type='checkbox' value='"+child.val()+"'/><label>"+child.val()+"</label>";
+              newelement.innerHTML=myelement;
+              document.getElementById('degreecollege').add(newelement);
+          });
+      });
+      
+      
+      
+      function register(){
+          console.log("I was here");
+          var myname=document.getElementById('namecollege').value;
+          if(myname==null || myname==""){
+              alert("Fill out the name field");
+              return false;
+          }
+          var mycollegecode=document.getElementById('collegecode').value;
+          if(mycollegecode==null || mycollegecode==""){
+              alert("Fill out the college code field");
+              return false;
+          }
+          var myemail=document.getElementById('emailcollege').value;
+          if(myemail==null || myemail==""){
+              alert("Fill out the email field");
+              return false;
+          }
+          var myaddress=document.getElementById('address').value;
+          if(myaddress==null || myaddress==""){
+              alert("Fill out the address field");
+              return false;
+          }
+          var myphone=document.getElementById('phonecollege').value;
+          if(myphone==null || myphone==""){
+              alert("Fill out the phone field");
+              return false;
+          }
+          var mypassyear=document.getElementById('passyearcollege').value;
+          if(mypassyear==null || mypassyear==""){
+              alert("Fill out the first batch passing field");
+              return false;
+          }
+          var txtSelectedValuesObj = document.getElementById('degreecollege');
+          var selectedArray = new Array();
+          var selObj = document.getElementById('degreecollege'); 
+          var i;
+          var count = 0;
+          for (i=0; i<selObj.options.length; i++) { 
+              if (selObj.options[i].selected) {
+                  selectedArray[count] = selObj.options[i].value;
+                  count++; 
+              } 
+          }
+          if(count==0){
+              alert("Fill out the degree field");
+              return false;
+          }
+              firebase.database().ref("Requests/College").push().set({
+              name:myname,
+              collegecode:mycollegecode,
+              email:myemail,
+              address:myaddress,
+              phone:myphone,
+              firstbatch:mypassyear,
+              degree:selectedArray	
+          });
+              alert("You have been successfully registered. Wait for verification at your registered email address");
+              resetform1();
+          return true;
+      }
+      function resetform1(){
+		document.getElementById('namecollege').value="";
+		document.getElementById('collegecode').value="";
+		document.getElementById('emailcollege').value="";
+		document.getElementById('phonecollege').value="";
+		document.getElementById('address').value="";
+		document.getElementById('pincode').value="";
+		document.getElementById('passyearcollege').value="";
+		document.getElementById('degreecollege').value="";
+	}
+      
+  function calculate_alumni()
+  {
+    var count=0;
+    firebase.database().ref("Users/Alumni/").once("value", function(snapshot){
+		snapshot.forEach(function(child){
+            child.forEach(function(mychild)
+            {
+                    count+=1;
+            });	
+        });
+        console.log(count);
+        document.getElementById("alno").innerHTML=count;
+    });
+    calculate_college();
+  }
+  function calculate_college()
+  {
+    var count=0;
+    firebase.database().ref("Users/College/").once("value", function(snapshot){
+		snapshot.forEach(function(child){
+            
+                    count+=1;
+                    console.log(count);
+        });
+        console.log(count);
+        document.getElementById("colno").innerHTML=count;
+    });
+  }
+    calculate_alumni();
+       
+      </script>
+
+      <!-- Start Counter Section -->
+    <section id="mu-counter">
+      <div class="mu-counter-overlay">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="mu-counter-area">
+              <center>  
+              <ul class="mu-counter-nav">
+                <li class="col-md-3 col-sm-3 col-xs-12">
+                  <div class="mu-single-counter" style="padding-right: 40px;">
+                    <span>Colleges</span>
+                    <h3><span class="counter" id="colno"></span></h3>
+                  </div>
+                </li>
+                <li class="col-md-3 col-sm-3 col-xs-12">
+                  <div class="mu-single-counter" style="padding-left: 40px;">
+                    <span>Alumni</span>
+                    <h3><span class="counter" id="alno"></span></h3>
+                  </div>
+                </li>
+
+              </ul>
+              </center>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Counter Section --> 
+    <!-- Start Footer -->
+    <footer id="mu-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+          <div class="mu-footer-area">
+             <div class="mu-footer-social">
+              <ul>
+                <a><li>FAQ</li></a>
+                <a><li>Contact Us</li></a>
+                <a><li>sd</li></a>
+                <a><li>fd</li></a>
+              </ul>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer -->
+
+</body>
+</html>
